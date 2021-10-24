@@ -4,3 +4,6 @@
 [submodule "libs/gfxtk_glfw/libs/glfw"]
 	path = libs/gfxtk_glfw/libs/glfw
 	url = https://github.com/glfw/glfw
+[submodule "libs/gfxtk_vulkan/libs/VulkanMemoryAllocator"]
+	path = libs/gfxtk_vulkan/libs/VulkanMemoryAllocator
+	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
