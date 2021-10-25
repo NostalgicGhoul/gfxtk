@@ -1,32 +1,44 @@
 #ifndef GFXTK_WINDOW_HPP
 #define GFXTK_WINDOW_HPP
 
-#include <gfxtk/backend/glfw/Window.hpp>
 #include <memory>
 #include <string>
+#include <functional>
 
 namespace gfxtk {
-    class Window {
-    public:
-        static std::unique_ptr<Window> create(std::string const& title, int width, int height);
+    namespace backend {
+        class Window;
+    }
 
+    class Window {
+        friend class Instance;
+        friend class SwapChainConfig;
+
+    public:
         static void init();
         static void deinit();
         static void pollEvents();
 
         [[nodiscard]]
-        std::string const& getTitle() const { return _backendWindow.getTitle(); }
+        std::string const& getTitle() const;
         [[nodiscard]]
-        int getWidth() const { return _backendWindow.getWidth(); }
+        int getWidth() const;
         [[nodiscard]]
-        int getHeight() const { return _backendWindow.getHeight(); }
+        int getHeight() const;
         [[nodiscard]]
-        bool getShouldClose() const { return _backendWindow.getShouldClose(); }
+        bool getShouldClose() const;
 
     private:
-        backend::Window _backendWindow;
+        static std::unique_ptr<Window> create(
+                std::string const& title,
+                int width,
+                int height,
+                std::function<void(int, int)> onResized
+        );
 
-        Window(std::string const& title, int width, int height);
+        std::shared_ptr<backend::Window> _backendWindow;
+
+        Window(std::string const& title, int width, int height, std::function<void(int, int)> onResized);
 
     };
 }

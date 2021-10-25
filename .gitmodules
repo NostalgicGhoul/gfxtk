@@ -7,3 +7,6 @@
 [submodule "libs/gfxtk_vulkan/libs/VulkanMemoryAllocator"]
 	path = libs/gfxtk_vulkan/libs/VulkanMemoryAllocator
 	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
+[submodule "libs/gfxtk_vulkan/libs/--force"]
+	path = libs/gfxtk_vulkan/libs/--force
+	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator

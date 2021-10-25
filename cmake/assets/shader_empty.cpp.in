@@ -1,0 +1,6 @@
+// This only exists because I need a C++ file for `add_gfxtk_shader_library`
+// Originally, I was able to get by with `add_library(target OBJECT ...)` for shader files but for Xcode (and I assume
+// all other generators) it attempts to link those files WHEN IT ISN'T SUPPOSED TO. So my work around is now to do
+// `add_library(target OBJECT shader_empty.cpp ...)`
+// TODO: It _might_ be possible to use this to further benefit users by outputting source and header files that
+// TODO: predefine shaders and loaders for those shaders for the user... idk.

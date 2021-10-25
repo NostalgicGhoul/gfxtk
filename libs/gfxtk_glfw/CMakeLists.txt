@@ -14,4 +14,5 @@ target_include_directories(gfxtk_glfw INTERFACE src)
 
 target_link_libraries(gfxtk_glfw
         glfw
+        gfxtk_logging
 )

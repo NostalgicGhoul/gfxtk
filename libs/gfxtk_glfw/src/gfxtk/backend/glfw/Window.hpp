@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <unordered_map>
+#include <functional>
 
 namespace gfxtk::backend {
     struct Window {
@@ -13,7 +14,7 @@ namespace gfxtk::backend {
         static void deinit();
         static void pollEvents();
 
-        Window(std::string const& title, int width, int height);
+        Window(std::string const& title, int width, int height, std::function<void(int, int)> onResized);
         Window(Window const&) = delete;
         Window(Window&& other) noexcept;
         ~Window();
@@ -27,11 +28,11 @@ namespace gfxtk::backend {
         bool getShouldClose() const;
 
         // --== GLFW-specific Window Members ==--
-        static std::unordered_map<GLFWwindow*, Window*> allWindows;
         GLFWwindow* window;
         std::string cachedTitle;
         int cachedWidth;
         int cachedHeight;
+        std::function<void(int, int)> onResized;
 
         void onWindowResized(int newWidth, int newHeight);
 
