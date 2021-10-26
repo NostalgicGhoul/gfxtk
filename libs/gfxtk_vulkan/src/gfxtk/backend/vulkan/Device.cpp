@@ -86,7 +86,6 @@ std::shared_ptr<gfxtk::backend::Device> gfxtk::backend::Device::create(
 
     std::vector<char const*> requiredExtensions;
 
-    //VK_KHR_surface, VK_EXT_metal_surface, VK_EXT_debug_utils, VK_KHR_swapchain
     if (swapChainConfig != nullptr) {
         requiredExtensions.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
     }
@@ -182,12 +181,12 @@ VkPhysicalDevice gfxtk::backend::Device::getPhysicalDeviceByName(VkInstance inst
     }
 
     GFXTK_LOG_F("GPU `" + name + "` was not found or was not compatible with `Vulkan`!");
-    return nullptr;
 }
 
 gfxtk::backend::Device::~Device() {
     vmaDestroyAllocator(allocator);
     vkDestroyDevice(logicalDevice, nullptr);
+    GFXTK_LOG_D("device destroyed");
 }
 
 bool gfxtk::backend::Device::getDeviceIsSuitable(
@@ -212,7 +211,7 @@ bool gfxtk::backend::Device::getDeviceIsSuitable(
     //       API, and 3. the _device itself_. Sure, perhaps you get a slight performance boost by tying the swap chain
     //       support to the _hardware_ but that dirties the API WAY too much for my liking. And if you do that _I should
     //       be able to query for swap chain support without needing to know about the window I'm rendering to_. I hate
-    //       it. And so my solution to this anger is to just assume that the device supports swap chains. Because lets
+    //       it. And so my solution to this anger is to just assume that the device supports swap chains. Because let's
     //       be honest here: _everyone_ is going to have a GPU supporting swap chains properly if they support Vulkan
     //       and there is no _real_ point in checking for support.
     //       Again, I fully believe the swap chain should be a _CPU side_ abstraction that is built _only in the window

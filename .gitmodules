@@ -10,3 +10,6 @@
 [submodule "libs/gfxtk_vulkan/libs/--force"]
 	path = libs/gfxtk_vulkan/libs/--force
 	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
+[submodule "libs/SPIRV-Cross"]
+	path = libs/SPIRV-Cross
+	url = https://github.com/KhronosGroup/SPIRV-Cross
