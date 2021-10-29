@@ -6,13 +6,10 @@
 #include "Device.hpp"
 
 namespace gfxtk::backend {
-    struct ShaderLibrary;
-
     struct Shader {
-        static std::shared_ptr<Shader> create(
-                std::unique_ptr<backend::ShaderLibrary> const& shaderLibrary,
-                std::string const& name,
-                std::vector<char> const& spirV
+        static std::shared_ptr<Shader> createFromSource(
+                std::shared_ptr<backend::Device> const& backendDevice,
+                std::string const& sourceFilePath
         );
 
         VkDevice vulkanDevice;

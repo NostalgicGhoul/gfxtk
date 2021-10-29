@@ -2,6 +2,7 @@
 #define GFXTK_SWAPCHAIN_HPP
 
 #include <memory>
+#include <vector>
 #include <gfxtk/QueueFamily.hpp>
 #include "Framebuffer.hpp"
 #include "Semaphore.hpp"

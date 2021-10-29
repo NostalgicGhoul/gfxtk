@@ -20,6 +20,7 @@ namespace gfxtk {
                 std::vector<BindGroupLayout> const& bindingGroupLayouts
         );
 
+        PipelineLayout() : _backendPipelineLayout(nullptr) {}
         ~PipelineLayout();
 
     private:

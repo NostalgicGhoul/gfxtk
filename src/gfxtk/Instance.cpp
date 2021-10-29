@@ -5,6 +5,8 @@
 
 #ifdef GFXTK_GRAPHICS_BACKEND_VULKAN
 #include <gfxtk/backend/vulkan/Instance.hpp>
+#elif GFXTK_GRAPHICS_BACKEND_METAL
+#include <gfxtk/backend/metal/Instance.hpp>
 #else
 #error target OS is not supported by any existing graphics backend!
 #endif
@@ -16,6 +18,7 @@ gfxtk::Instance gfxtk::Instance::create(gfxtk::InitConfig const& initConfig) {
         GFXTK_LOG_F("an instance already exists, only one instance can exist at a time!");
     } else {
         hasBeenCreated = true;
+        log::init();
         Window::init();
     }
 
@@ -26,11 +29,24 @@ gfxtk::Instance gfxtk::Instance::create(gfxtk::InitConfig const& initConfig) {
 gfxtk::Instance::Instance(std::unique_ptr<backend::Instance> backendInstance)
         : _backendInstance(std::move(backendInstance)) {}
 
+gfxtk::Instance::Instance(gfxtk::Instance&& other) noexcept {
+    this->_backendInstance = std::move(other._backendInstance);
+}
+
+gfxtk::Instance& gfxtk::Instance::operator=(gfxtk::Instance&& other) noexcept {
+    this->_backendInstance = std::move(other._backendInstance);
+    return *this;
+}
+
 gfxtk::Instance::~Instance() {
-    _backendInstance = nullptr;
-    Window::deinit();
-    hasBeenCreated = false;
-    GFXTK_LOG_I("gfxtk has shutdown.");
+    // TODO: This isn't needed if we make it so `Instance` doesn't have a default constructor...
+    if (hasBeenCreated && _backendInstance != nullptr) {
+        _backendInstance = nullptr;
+        Window::deinit();
+        hasBeenCreated = false;
+        GFXTK_LOG_I("gfxtk has shutdown.");
+        log::deinit();
+    }
 }
 
 gfxtk::Device gfxtk::Instance::createBestFitDevice(

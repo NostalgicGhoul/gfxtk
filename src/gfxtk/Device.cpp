@@ -5,6 +5,8 @@
 
 #ifdef GFXTK_GRAPHICS_BACKEND_VULKAN
 #include <gfxtk/backend/vulkan/Device.hpp>
+#elif GFXTK_GRAPHICS_BACKEND_METAL
+#include <gfxtk/backend/metal/Device.hpp>
 #else
 #error target OS is not supported by any existing graphics backend!
 #endif
@@ -33,8 +35,6 @@ gfxtk::Device gfxtk::Device::createBestFit(
     }
 
     GFXTK_LOG_F("no GPU devices were found!");
-    // Just to remove the annoying warning, this won't actually ever be reached.
-    return Device(nullptr, {});
 }
 
 std::vector<gfxtk::DeviceInfo> gfxtk::Device::getDevices(
@@ -135,8 +135,8 @@ gfxtk::SwapChain gfxtk::Device::createSwapChain(SwapChainConfig& swapChainConfig
     );
 }
 
-gfxtk::ShaderLibrary gfxtk::Device::createShaderLibrary() {
-    return ShaderLibrary::create(_backendDevice);
+gfxtk::Shader gfxtk::Device::createShader(std::string const& sourceFilePath) {
+    return Shader::createFromSource(_backendDevice, sourceFilePath);
 }
 
 gfxtk::BindGroupLayout gfxtk::Device::createBindGroupLayout(BindGroupLayoutDescriptor const& descriptor) {

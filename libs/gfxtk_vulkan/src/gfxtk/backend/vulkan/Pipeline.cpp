@@ -153,18 +153,22 @@ std::shared_ptr<gfxtk::backend::Pipeline> gfxtk::backend::Pipeline::createRender
     for (auto const& colorBlendAttachment : colorBlendAttachments) {
         VkPipelineColorBlendAttachmentState vulkanColorBlendAttachment{};
         vulkanColorBlendAttachment.blendEnable = colorBlendAttachment.isBlendingEnabled;
-        vulkanColorBlendAttachment.srcColorBlendFactor =
-                backend::BlendFactor::convert(colorBlendAttachment.sourceColorBlendFactor);
-        vulkanColorBlendAttachment.dstColorBlendFactor =
-                backend::BlendFactor::convert(colorBlendAttachment.destinationColorBlendFactor);
-        vulkanColorBlendAttachment.colorBlendOp = backend::BlendOp::convert(colorBlendAttachment.colorBlendOp);
-        vulkanColorBlendAttachment.srcAlphaBlendFactor =
-                backend::BlendFactor::convert(colorBlendAttachment.sourceAlphaBlendFactor);
-        vulkanColorBlendAttachment.dstAlphaBlendFactor =
-                backend::BlendFactor::convert(colorBlendAttachment.destinationAlphaBlendFactor);
-        vulkanColorBlendAttachment.alphaBlendOp = backend::BlendOp::convert(colorBlendAttachment.alphaBlendOp);
         vulkanColorBlendAttachment.colorWriteMask =
                 backend::ColorWriteMask::convert(colorBlendAttachment.colorWriteMask);
+
+        if (colorBlendAttachment.isBlendingEnabled) {
+            vulkanColorBlendAttachment.srcColorBlendFactor =
+                    backend::BlendFactor::convert(colorBlendAttachment.sourceColorBlendFactor);
+            vulkanColorBlendAttachment.dstColorBlendFactor =
+                    backend::BlendFactor::convert(colorBlendAttachment.destinationColorBlendFactor);
+            vulkanColorBlendAttachment.colorBlendOp = backend::BlendOp::convert(colorBlendAttachment.colorBlendOp);
+            vulkanColorBlendAttachment.srcAlphaBlendFactor =
+                    backend::BlendFactor::convert(colorBlendAttachment.sourceAlphaBlendFactor);
+            vulkanColorBlendAttachment.dstAlphaBlendFactor =
+                    backend::BlendFactor::convert(colorBlendAttachment.destinationAlphaBlendFactor);
+            vulkanColorBlendAttachment.alphaBlendOp = backend::BlendOp::convert(colorBlendAttachment.alphaBlendOp);
+        }
+
         vulkanColorBlendAttachments.push_back(vulkanColorBlendAttachment);
     }
 

@@ -16,6 +16,8 @@ add_library(gfxtk_vulkan STATIC
         src/gfxtk/backend/vulkan/BlendOp.hpp
         src/gfxtk/backend/vulkan/Buffer.cpp
         src/gfxtk/backend/vulkan/Buffer.hpp
+        src/gfxtk/backend/vulkan/BufferUsageFlags.cpp
+        src/gfxtk/backend/vulkan/BufferUsageFlags.hpp
         src/gfxtk/backend/vulkan/ColorSpace.cpp
         src/gfxtk/backend/vulkan/ColorSpace.hpp
         src/gfxtk/backend/vulkan/ColorWriteMask.cpp
@@ -42,6 +44,8 @@ add_library(gfxtk_vulkan STATIC
         src/gfxtk/backend/vulkan/Instance.hpp
         src/gfxtk/backend/vulkan/LoadOp.cpp
         src/gfxtk/backend/vulkan/LoadOp.hpp
+        src/gfxtk/backend/vulkan/MemoryUsage.cpp
+        src/gfxtk/backend/vulkan/MemoryUsage.hpp
         src/gfxtk/backend/vulkan/Pipeline.cpp
         src/gfxtk/backend/vulkan/Pipeline.hpp
         src/gfxtk/backend/vulkan/PipelineLayout.cpp
@@ -62,8 +66,6 @@ add_library(gfxtk_vulkan STATIC
         src/gfxtk/backend/vulkan/Semaphore.hpp
         src/gfxtk/backend/vulkan/Shader.cpp
         src/gfxtk/backend/vulkan/Shader.hpp
-        src/gfxtk/backend/vulkan/ShaderLibrary.cpp
-        src/gfxtk/backend/vulkan/ShaderLibrary.hpp
         src/gfxtk/backend/vulkan/ShaderStageFlags.cpp
         src/gfxtk/backend/vulkan/ShaderStageFlags.hpp
         src/gfxtk/backend/vulkan/StencilOp.cpp
@@ -82,7 +84,7 @@ add_library(gfxtk_vulkan STATIC
         src/gfxtk/backend/vulkan/TriangleFillMode.hpp
         src/gfxtk/backend/vulkan/VertexFormat.cpp
         src/gfxtk/backend/vulkan/VertexFormat.hpp
-        src/gfxtk/backend/vulkan/BufferUsageFlags.cpp src/gfxtk/backend/vulkan/BufferUsageFlags.hpp src/gfxtk/backend/vulkan/MemoryUsage.cpp src/gfxtk/backend/vulkan/MemoryUsage.hpp)
+)
 
 target_include_directories(gfxtk_vulkan INTERFACE src)
 

@@ -9,7 +9,6 @@
 #include <gfxtk/DeviceInfo.hpp>
 #include <gfxtk/SwapChain.hpp>
 #include <gfxtk/SwapChainConfig.hpp>
-#include <gfxtk/ShaderLibrary.hpp>
 #include <gfxtk/BindGroupLayout.hpp>
 #include <gfxtk/PipelineLayout.hpp>
 #include <gfxtk/RenderPassAttachmentDescriptor.hpp>
@@ -32,7 +31,7 @@ namespace gfxtk {
         ~Device();
 
         SwapChain createSwapChain(SwapChainConfig& swapChainConfig);
-        ShaderLibrary createShaderLibrary();
+        Shader createShader(std::string const& sourceFilePath);
         BindGroupLayout createBindGroupLayout(BindGroupLayoutDescriptor const& descriptor);
         RenderPassAttachment createRenderPassAttachment(RenderPassAttachmentDescriptor const& descriptor);
         PipelineLayout createPipelineLayout(std::vector<BindGroupLayout> const& bindingGroupLayouts = {});

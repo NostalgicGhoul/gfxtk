@@ -26,7 +26,6 @@ namespace gfxtk {
 
         // Packed 16-bit formats
         B5G6R5Unorm,
-        ABGR4Unorm,
         BGR5A1Unorm,
 
         // Ordinary 32-bit formats

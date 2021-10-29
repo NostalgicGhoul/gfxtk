@@ -1,6 +1,7 @@
 #ifndef GFXTK_BINDGROUPLAYOUT_HPP
 #define GFXTK_BINDGROUPLAYOUT_HPP
 
+#include <memory>
 #include <gfxtk/BindGroupLayoutDescriptor.hpp>
 
 namespace gfxtk {

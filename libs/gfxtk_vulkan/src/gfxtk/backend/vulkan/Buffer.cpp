@@ -35,4 +35,5 @@ void* gfxtk::backend::Buffer::map() {
 
 void gfxtk::backend::Buffer::unmap() {
     vmaUnmapMemory(vulkanMemoryAllocator, vulkanMemoryAllocation);
+    vmaFlushAllocation(vulkanMemoryAllocator, vulkanMemoryAllocation, 0, VK_WHOLE_SIZE);
 }

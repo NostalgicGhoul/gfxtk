@@ -3,9 +3,10 @@ project(example_triangle)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_gfxtk_shader_library(example_triangle_shaders shaders/
-        shader.vert
-        shader.frag
+add_gfxtk_shader_library(
+        TARGET example_triangle_shaders
+        OUTPUT shaders/
+        SHADERS shader.vert shader.frag
 )
 
 add_executable(example_triangle

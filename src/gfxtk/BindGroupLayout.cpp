@@ -2,6 +2,8 @@
 
 #ifdef GFXTK_GRAPHICS_BACKEND_VULKAN
 #include <gfxtk/backend/vulkan/BindGroupLayout.hpp>
+#elif GFXTK_GRAPHICS_BACKEND_METAL
+#include <gfxtk/backend/metal/BindGroupLayout.hpp>
 #else
 #error target OS is not supported by any existing graphics backend!
 #endif

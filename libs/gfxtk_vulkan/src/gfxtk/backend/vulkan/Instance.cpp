@@ -1,5 +1,6 @@
 #include "Instance.hpp"
 #include <gfxtk/log.hpp>
+#include <cstring>
 
 #ifdef GFXTK_WINDOW_BACKEND_GLFW
 #include <gfxtk/backend/glfw/Window.hpp>

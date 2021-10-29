@@ -3,6 +3,11 @@ project(gfxtk)
 
 set(CMAKE_CXX_STANDARD 17)
 
+option(GFXTK_GENERATE_METAL_SHADERS "Generate Metal shaders for all provided shader sources" ON)
+
+set(GFXTK_GRAPHICS_BACKEND "vulkan")
+set(GFXTK_GIT_INFO_HEADER_PATH ${CMAKE_SOURCE_DIR}/libs/gfxtk_logging/src/gfxtk/)
+include(cmake/GitInfo.cmake)
 include(cmake/ConfigureBackends.cmake)
 include(cmake/Shaders.cmake)
 
@@ -11,10 +16,11 @@ add_subdirectory(libs/glm)
 add_subdirectory(libs/gfxtk_core)
 add_subdirectory(libs/gfxtk_logging)
 add_subdirectory(libs/${GFXTK_WINDOW_BACKEND_LIBS})
-add_subdirectory(libs/${GFXTK_GRAPHICS_BACKEND_LIBS})
+add_subdirectory(libs/${GFXTK_GRAPHICS_BACKEND_LIB_NAME})
 
 # Include examples...
 add_subdirectory(examples/00-triangle)
+add_subdirectory(examples/metal-test)
 
 # For some dumbass reason I have to include this even though I have `target_include_directories(gfxtk INTERFACE src)`
 # which works perfectly with every other referenced project. Whatever.
@@ -59,8 +65,6 @@ add_library(gfxtk SHARED
         src/gfxtk/Semaphore.hpp
         src/gfxtk/Shader.cpp
         src/gfxtk/Shader.hpp
-        src/gfxtk/ShaderLibrary.cpp
-        src/gfxtk/ShaderLibrary.hpp
         src/gfxtk/SwapChain.cpp
         src/gfxtk/SwapChain.hpp
         src/gfxtk/SwapChainConfig.cpp
@@ -81,3 +85,5 @@ target_link_libraries(gfxtk
         ${GFXTK_WINDOW_BACKEND_LIBS}
         glm
 )
+
+add_dependencies(gfxtk gfxtk_git_info)

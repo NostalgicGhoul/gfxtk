@@ -46,6 +46,8 @@ namespace gfxtk {
     class Instance {
     public:
         static Instance create(InitConfig const& initConfig);
+        Instance(Instance&& other) noexcept;
+        Instance& operator=(Instance&& other) noexcept;
 
         /**
          * Grab the device that best fits the requirements provided by `InitConfig`. On the majority of systems, this

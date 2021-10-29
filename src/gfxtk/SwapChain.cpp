@@ -3,6 +3,8 @@
 
 #ifdef GFXTK_GRAPHICS_BACKEND_VULKAN
 #include <gfxtk/backend/vulkan/SwapChain.hpp>
+#elif GFXTK_GRAPHICS_BACKEND_METAL
+#include <gfxtk/backend/metal/SwapChain.hpp>
 #else
 #error target OS is not supported by any existing graphics backend!
 #endif

@@ -20,7 +20,6 @@ VkFormat gfxtk::backend::PixelFormat::convertToVkFormat(gfxtk::PixelFormat pixel
         case gfxtk::PixelFormat::RG8Uint: return VK_FORMAT_R8G8_UINT;
         case gfxtk::PixelFormat::RG8Sint: return VK_FORMAT_R8G8_SINT;
         case gfxtk::PixelFormat::B5G6R5Unorm: return VK_FORMAT_B5G6R5_UNORM_PACK16;
-        case gfxtk::PixelFormat::ABGR4Unorm: return VK_FORMAT_A4B4G4R4_UNORM_PACK16_EXT;
         case gfxtk::PixelFormat::BGR5A1Unorm: return VK_FORMAT_B5G5R5A1_UNORM_PACK16;
         case gfxtk::PixelFormat::R32Uint: return VK_FORMAT_R32_UINT;
         case gfxtk::PixelFormat::R32Sint: return VK_FORMAT_R32_SINT;

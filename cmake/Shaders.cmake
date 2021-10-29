@@ -1,25 +1,29 @@
 # NOTE: Vulkan is always a requirement for `gfxtk` due to our use of `glslc` for shaders (among other shader tools)
 #       the plan is to use Vulkan's variant of GLSL, compile to Spir-V, then use Vulkan's transpilation tool to convert
 #       the Spir-V to the shader language of each supported backend.
-find_package(Vulkan REQUIRED COMPONENTS glslc)
-find_program(glslc_executable NAMES glslc HINTS Vulkan::glslc)
+find_package(Vulkan REQUIRED COMPONENTS glslangValidator spirv-cross)
+find_program(glslangValidator NAMES glslangValidator HINTS Vulkan::glslangValidator)
+find_program(spirv-cross NAMES spirv-cross HINTS Vulkan::spirv-cross)
 
-# Create a new shader library which can be referenced through `target_link_libraries(library_target_name)`
-#
-# Usage:
-#     add_gfxtk_shader_library(library_target_name output_directory shaderFile...)
-function(add_gfxtk_shader_library library_target_name output_directory)
-    get_filename_component(ABSOLUTE_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/${output_directory}" ABSOLUTE)
+function(add_gfxtk_shader_library)
+    set(one_value_args TARGET OUTPUT)
+    set(multi_value_args SHADERS)
+    cmake_parse_arguments(ARG "" "${one_value_args}" "${multi_value_args}" ${ARGN})
 
-    add_custom_command(OUTPUT ${ABSOLUTE_OUTPUT_DIR}
+    get_filename_component(ABSOLUTE_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/${ARG_OUTPUT}" ABSOLUTE)
+    set(ABSOLUTE_STAGING_DIR "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${ARG_OUTPUT}")
+
+    add_custom_command(OUTPUT ${ABSOLUTE_OUTPUT_DIR} ${ABSOLUTE_STAGING_DIR}
             COMMAND ${CMAKE_COMMAND} -E make_directory "${ABSOLUTE_OUTPUT_DIR}"
-            COMMENT "Creating shader library directory ${output_directory}"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${ABSOLUTE_STAGING_DIR}"
+            COMMENT "Creating shader library directory ${ARG_OUTPUT}"
             WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     )
 
-    set(GFXTK_SHADER_SOURCES "")
+    set(GFXTK_SHADER_LIBRARIES "")
 
-    foreach(source_file_path IN ITEMS ${ARGN})
+    # First things first, we generate all SPIR-V files from the shader sources
+    foreach(source_file_path IN ITEMS ${ARG_SHADERS})
         set(INPUT_FILE ${CMAKE_CURRENT_LIST_DIR}/${source_file_path})
 
         if(NOT EXISTS ${INPUT_FILE})
@@ -27,25 +31,40 @@ function(add_gfxtk_shader_library library_target_name output_directory)
         endif()
 
         get_filename_component(FILENAME ${INPUT_FILE} NAME)
+        get_filename_component(SHADER_TYPE ${INPUT_FILE} LAST_EXT)
 
         set(OUTPUT_FILE ${ABSOLUTE_OUTPUT_DIR}/${FILENAME}.spv)
 
         add_custom_command(OUTPUT ${OUTPUT_FILE}
-                COMMAND ${glslc_executable} ${INPUT_FILE} -o ${OUTPUT_FILE}
+                COMMAND ${glslangValidator} --quiet -V ${INPUT_FILE} -o ${OUTPUT_FILE}
                 MAIN_DEPENDENCY ${INPUT_FILE}
-                DEPENDS ${ABSOLUTE_OUTPUT_DIR}
-                COMMENT "Compiling shader ${source_file_path}"
+                DEPENDS ${ABSOLUTE_STAGING_DIR}
+                COMMENT "Compiling SPIR-V shader for ${source_file_path}"
                 WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         )
 
-        list(APPEND GFXTK_SHADER_SOURCES ${INPUT_FILE})
+        list(APPEND GFXTK_SHADER_LIBRARIES ${OUTPUT_FILE})
+
+        if (GFXTK_GENERATE_METAL_SHADERS)
+            set(OUTPUT_METAL_SHADER_LIBRARY_FILE ${ABSOLUTE_OUTPUT_DIR}/${FILENAME}.metal)
+
+            add_custom_command(OUTPUT ${OUTPUT_METAL_SHADER_LIBRARY_FILE}
+                    COMMAND ${spirv-cross} --msl ${OUTPUT_FILE} --output ${OUTPUT_METAL_SHADER_LIBRARY_FILE}
+                    MAIN_DEPENDENCY ${OUTPUT_FILE}
+                    DEPENDS ${ABSOLUTE_OUTPUT_DIR} ${OUTPUT_FILE}
+                    COMMENT "Generating Metal shader for ${source_file_path}"
+                    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+            )
+
+            list(APPEND GFXTK_SHADER_LIBRARIES ${OUTPUT_METAL_SHADER_LIBRARY_FILE})
+        endif()
     endforeach()
 
-    set(FAKE_CPP_FILE ${ABSOLUTE_OUTPUT_DIR}/shader_empty.cpp)
+    set(FAKE_CPP_FILE ${ABSOLUTE_STAGING_DIR}/shader_empty.cpp)
     configure_file(${CMAKE_SOURCE_DIR}/cmake/assets/shader_empty.cpp.in ${FAKE_CPP_FILE})
 
-    add_library(${library_target_name} STATIC
+    add_library(${ARG_TARGET} STATIC
             ${FAKE_CPP_FILE}
-            ${GFXTK_SHADER_SOURCES}
+            ${GFXTK_SHADER_LIBRARIES}
     )
 endfunction(add_gfxtk_shader_library)

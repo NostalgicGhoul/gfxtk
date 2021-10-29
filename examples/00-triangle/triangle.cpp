@@ -1,13 +1,12 @@
+#define private public
 #include <gfxtk/log.hpp>
 #include <gfxtk/Instance.hpp>
 #include <gfxtk/Window.hpp>
 #include <gfxtk/Device.hpp>
 #include <gfxtk/SwapChainConfig.hpp>
-#include <gfxtk/ShaderLibrary.hpp>
 #include <gfxtk/Shader.hpp>
 #include <fstream>
 #include "Vertex.hpp"
-#include <gfxtk/backend/vulkan/Framebuffer.hpp>
 
 // TODO: Tasks:
 //        1. [DONE] Implement the code for choosing the windowing backend, graphics backend, etc.
@@ -15,12 +14,6 @@
 //        3. Rename `InitConfig` to `InstanceConfig`
 
 using namespace gfxtk;
-
-const std::vector<Vertex> vertices = {
-        {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
-        {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
-        {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
-};
 
 std::vector<char> readEntireFile(std::string const& filepath) {
     std::ifstream inputShaderStream(filepath, std::ios::binary);
@@ -38,6 +31,7 @@ void createSwapChain(
         SwapChainConfig& swapChainConfig,
         SwapChain& swapChain,
         RenderPassAttachment& renderPassAttachment,
+        PipelineLayout& renderPipelineLayout,
         Pipeline& renderPipeline,
         CommandQueue& renderCommandQueue
 ) {
@@ -46,20 +40,13 @@ void createSwapChain(
     // This triggers everything to be freed...
     renderCommandQueue = {};
     renderPipeline = {};
+    renderPipelineLayout = {};
     renderPassAttachment = {};
     swapChain = {};
 
     swapChain = device.createSwapChain(swapChainConfig);
-    auto defaultShaderLibrary = device.createShaderLibrary();
-    auto vertexShader = defaultShaderLibrary.createShader(
-            "default_vertex",
-            readEntireFile("shaders/shader.vert.spv")
-    );
-    auto fragmentShader = defaultShaderLibrary.createShader(
-            "default_fragment",
-            readEntireFile("shaders/shader.frag.spv")
-    );
-    auto pipelineLayout = device.createPipelineLayout();
+    auto vertexShader = device.createShader("shaders/shader.vert");
+    auto fragmentShader = device.createShader("shaders/shader.frag");
     renderPassAttachment = device.createRenderPassAttachment(
             RenderPassAttachmentDescriptor(
                     {
@@ -73,9 +60,10 @@ void createSwapChain(
                     }
             )
     );
+    renderPipelineLayout = device.createPipelineLayout();
     renderPipeline = device.createRenderPipeline(
             RenderPipelineDescriptor(
-                    pipelineLayout,
+                    renderPipelineLayout,
                     renderPassAttachment,
                     vertexShader,
                     fragmentShader,
@@ -96,8 +84,8 @@ void createSwapChain(
                     PipelineRasterizationStateDescriptor(
                             DepthClipMode::Clip,
                             TriangleFillMode::Fill,
-                            CullMode::Back,
-                            Winding::Clockwise
+                            CullMode::None,
+                            Winding::CounterClockwise
                     ),
                     {
                             PipelineColorBlendAttachmentDescriptor(ColorWriteMask::All)
@@ -111,10 +99,16 @@ void createSwapChain(
 }
 
 int main() {
+    const std::vector<Vertex> vertices = {
+            {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+            {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+            {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+    };
+
     InitConfig initConfig;
-    initConfig.applicationName = "Hokari";
+    initConfig.applicationName = "Triangle Test";
     initConfig.applicationVersion = Version(0, 0, 1);
-    initConfig.engineName = "Hokari(backend: gfxtk)";
+    initConfig.engineName = "gfxtk";
     initConfig.engineVersion = Version(0, 0, 1);
 #ifndef NDEBUG
     initConfig.debugMode = true;
@@ -124,7 +118,7 @@ int main() {
 
     auto instance = Instance::create(initConfig);
     auto window = instance.createWindow(
-            "Hokari", 800, 600,
+            "Triangle", 800, 600,
             [&](int width, int height) {
                 framebufferResized = true;
             }
@@ -137,6 +131,7 @@ int main() {
     auto device = instance.createBestFitDevice(QueueFlags::Render | QueueFlags::Present, swapChainConfig);
     SwapChain swapChain;
     RenderPassAttachment renderPassAttachment;
+    PipelineLayout renderPipelineLayout;
     Pipeline renderPipeline;
     CommandQueue renderCommandQueue;
 
@@ -146,6 +141,7 @@ int main() {
             swapChainConfig,
             swapChain,
             renderPassAttachment,
+            renderPipelineLayout,
             renderPipeline,
             renderCommandQueue
     );
@@ -190,6 +186,7 @@ int main() {
                     swapChainConfig,
                     swapChain,
                     renderPassAttachment,
+                    renderPipelineLayout,
                     renderPipeline,
                     renderCommandQueue
             );
@@ -205,7 +202,7 @@ int main() {
                         0, 0,
                         window->getWidth(), window->getHeight()
                 ),
-                ClearColorValue(1, 0, 1, 1)
+                ClearColorValue(0, 0, 0, 1)
         );
 
         currentRenderPassEncoder.setPipeline(renderPipeline);
@@ -219,7 +216,7 @@ int main() {
 
         renderCommandQueue.submit(
                 imageAvailableSemaphores[currentFrameIndex],
-                PipelineStage::TopOfPipe,
+                PipelineStage::ColorAttachment,
                 currentCommandBuffer,
                 renderFinishedSemaphores[currentFrameIndex],
                 inFlightFences[currentFrameIndex]
@@ -238,6 +235,7 @@ int main() {
                     swapChainConfig,
                     swapChain,
                     renderPassAttachment,
+                    renderPipelineLayout,
                     renderPipeline,
                     renderCommandQueue
             );

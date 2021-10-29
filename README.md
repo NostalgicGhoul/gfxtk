@@ -34,10 +34,12 @@ Install the following required packages:
 
 ```shell
 sudo apt-get install git cmake build-essential libx11-xcb-dev \
-    libxkbcommon-dev libwayland-dev libxrandr-dev
+    libxkbcommon-dev libwayland-dev libxrandr-dev libvulkan-dev \
+    vulkan-tools vulkan-utils vulkan-validationlayers-dev \
+    libxinerama-dev libxcursor-dev libxi-dev
 ```
 
-## FAQ
+## Q&A
 
 ### Why not *GL?
 
@@ -58,3 +60,15 @@ The reason for these APIs not getting support is due to two facts:
    are, OpenGL ES 2.0 was released in July of 2003, making it 18 years old at the 
    time of writing this. These ancient APIs lack _many_ of the modern constructs and 
    techniques used in gfxtk and the modern APIs it supports.
+
+### Why are multiple `MTLLibrary` used for each `Shader`?
+
+Originally, I planned to combine shaders into a single `shader.metal` when compiling 
+the shaders in CMAKE. This plan fell through because `spirv-cross` is bugged and only
+generates code for the first entry point it finds. I don't currently have the energy
+to modify `spirv-cross` so I've taken the lazy choice for the time being. As far as I
+can tell, it _should_ be possible to create a single `VkShaderModule` by generating
+all shader stages with different entry point names (i.e. `-e new_main --source-name main`)
+then setting the entry points in code. I haven't tested it but I was able to generate
+the monolithic SPIR-V code for this. I only gave up on this idea when `spirv-cross`
+failed me.
