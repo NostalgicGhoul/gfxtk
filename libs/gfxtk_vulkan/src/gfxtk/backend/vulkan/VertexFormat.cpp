@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "VertexFormat.hpp"
 
 VkFormat gfxtk::backend::VertexFormat::convertToVkFormat(gfxtk::VertexFormat vertexFormat) {
@@ -100,5 +101,7 @@ VkFormat gfxtk::backend::VertexFormat::convertToVkFormat(gfxtk::VertexFormat ver
             return VK_FORMAT_R32G32B32_SINT;
         case gfxtk::VertexFormat::Int4:
             return VK_FORMAT_R32G32B32A32_SINT;
+        default:
+            GFXTK_LOG_F("unknown `VertexFormat` found in `gfxtk::backend::VertexFormat::convertToVkFormat`!");
     }
 }

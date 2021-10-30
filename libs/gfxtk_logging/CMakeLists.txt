@@ -9,3 +9,9 @@ add_library(gfxtk_logging STATIC
 )
 
 target_include_directories(gfxtk_logging INTERFACE src)
+
+target_compile_definitions(gfxtk_logging PRIVATE GFXTK_BUILD_LIBRARY=1)
+
+target_link_libraries(gfxtk_logging
+        gfxtk_core
+)

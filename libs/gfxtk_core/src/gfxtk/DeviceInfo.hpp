@@ -1,13 +1,14 @@
 #ifndef GFXTK_DEVICEINFO_HPP
 #define GFXTK_DEVICEINFO_HPP
 
+#include "microsoft_fix.hpp"
 #include <string>
 #include <vector>
 #include "DeviceType.hpp"
 #include "QueueFamily.hpp"
 
 namespace gfxtk {
-    class DeviceInfo {
+    class GFXTK_EXPORT DeviceInfo {
     public:
         DeviceInfo(DeviceType type, std::string name, std::vector<QueueFamily> queueFamilies)
                 : _type(type), _name(std::move(name)), _queueFamilies(std::move(queueFamilies)) {}

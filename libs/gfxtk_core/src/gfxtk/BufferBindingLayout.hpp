@@ -1,6 +1,8 @@
 #ifndef GFXTK_BUFFERBINDINGLAYOUT_HPP
 #define GFXTK_BUFFERBINDINGLAYOUT_HPP
 
+#include "microsoft_fix.hpp"
+
 namespace gfxtk {
     enum class BufferBindingType {
         Uniform,
@@ -8,7 +10,7 @@ namespace gfxtk {
         ReadOnlyStorage,
     };
 
-    struct BufferBindingLayout {
+    struct GFXTK_EXPORT BufferBindingLayout {
         BufferBindingType type;
 
         explicit BufferBindingLayout(BufferBindingType type)

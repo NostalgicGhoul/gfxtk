@@ -16,7 +16,7 @@ namespace gfxtk {
 
         static VertexBufferLayout getVertexBufferLayout() {
             return VertexBufferLayout(
-                    0,
+                    sizeof(Vertex),
                     VertexStepFunction::PerVertex,
                     {
                         VertexAttribute(0, VertexFormat::Float2, offsetof(Vertex, position)),

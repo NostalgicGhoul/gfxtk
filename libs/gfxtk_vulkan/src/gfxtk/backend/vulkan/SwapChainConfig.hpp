@@ -8,8 +8,8 @@
 #include <gfxtk/Extent2D.hpp>
 
 namespace gfxtk::backend {
-    class Instance;
-    class Window;
+    struct Instance;
+    struct Window;
 
     struct Surface {
         VkInstance cachedVulkanInstance;

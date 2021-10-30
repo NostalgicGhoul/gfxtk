@@ -1,13 +1,14 @@
 #ifndef GFXTK_RENDERPASSCOLORATTACHMENT_HPP
 #define GFXTK_RENDERPASSCOLORATTACHMENT_HPP
 
+#include "microsoft_fix.hpp"
 #include "PixelFormat.hpp"
 #include "LoadOp.hpp"
 #include "StoreOp.hpp"
 #include "TextureLayout.hpp"
 
 namespace gfxtk {
-    struct RenderPassColorAttachment {
+    struct GFXTK_EXPORT RenderPassColorAttachment {
         PixelFormat pixelFormat;
         LoadOp loadOp;
         StoreOp storeOp;

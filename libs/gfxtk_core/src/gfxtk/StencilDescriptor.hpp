@@ -1,12 +1,13 @@
 #ifndef GFXTK_STENCILDESCRIPTOR_HPP
 #define GFXTK_STENCILDESCRIPTOR_HPP
 
+#include "microsoft_fix.hpp"
 #include <cstdint>
 #include "StencilOp.hpp"
 #include "CompareOp.hpp"
 
 namespace gfxtk {
-    struct StencilDescriptor {
+    struct GFXTK_EXPORT StencilDescriptor {
         StencilOp stencilFailOp;
         StencilOp depthFailOp;
         StencilOp depthStencilPassOp;

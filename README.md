@@ -28,6 +28,12 @@ implementation.
 
 ## Building
 
+Clone the repo using:
+
+```shell
+git clone --recurse-submodules https://gitlab.com/NostalgicGhoul/gfxtk
+```
+
 ### Linux
 
 Install the following required packages:

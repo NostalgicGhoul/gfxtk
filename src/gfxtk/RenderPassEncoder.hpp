@@ -2,16 +2,17 @@
 #define GFXTK_RENDERPASSENCODER_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/IndexType.hpp>
 #include "Pipeline.hpp"
 #include "Buffer.hpp"
 
 namespace gfxtk {
     namespace backend {
-        class RenderPassEncoder;
+        struct RenderPassEncoder;
     }
 
-    class RenderPassEncoder {
+    class GFXTK_EXPORT RenderPassEncoder {
         friend class CommandEncoder;
 
     public:

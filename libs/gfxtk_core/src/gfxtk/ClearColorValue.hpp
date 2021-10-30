@@ -1,11 +1,12 @@
 #ifndef GFXTK_CLEARCOLORVALUE_HPP
 #define GFXTK_CLEARCOLORVALUE_HPP
 
+#include "microsoft_fix.hpp"
 #include <cstdint>
 #include <array>
 
 namespace gfxtk {
-    struct ClearColorValue {
+    struct GFXTK_EXPORT ClearColorValue {
         float r;
         float g;
         float b;

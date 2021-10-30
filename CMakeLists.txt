@@ -20,7 +20,7 @@ add_subdirectory(libs/${GFXTK_GRAPHICS_BACKEND_LIB_NAME})
 
 # Include examples...
 add_subdirectory(examples/00-triangle)
-add_subdirectory(examples/metal-test)
+#add_subdirectory(examples/metal-test)
 
 # For some dumbass reason I have to include this even though I have `target_include_directories(gfxtk INTERFACE src)`
 # which works perfectly with every other referenced project. Whatever.
@@ -77,11 +77,13 @@ add_library(gfxtk SHARED
         src/gfxtk/Window.hpp
 )
 
+target_compile_definitions(gfxtk PRIVATE GFXTK_BUILD_LIBRARY=1)
+
 target_include_directories(gfxtk INTERFACE src)
 
 target_link_libraries(gfxtk
-        gfxtk_logging
         ${GFXTK_GRAPHICS_BACKEND_LIBS}
+        gfxtk_logging
         ${GFXTK_WINDOW_BACKEND_LIBS}
         glm
 )

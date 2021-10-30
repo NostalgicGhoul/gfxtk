@@ -1,10 +1,11 @@
 #ifndef GFXTK_EXTENT2D_HPP
 #define GFXTK_EXTENT2D_HPP
 
+#include "microsoft_fix.hpp"
 #include <cstdint>
 
 namespace gfxtk {
-    struct Extent2D {
+    struct GFXTK_EXPORT Extent2D {
         uint32_t width;
         uint32_t height;
 

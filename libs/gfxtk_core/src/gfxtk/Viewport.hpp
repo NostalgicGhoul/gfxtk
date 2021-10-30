@@ -1,8 +1,10 @@
 #ifndef GFXTK_VIEWPORT_HPP
 #define GFXTK_VIEWPORT_HPP
 
+#include "microsoft_fix.hpp"
+
 namespace gfxtk {
-    struct Viewport {
+    struct GFXTK_EXPORT Viewport {
         float x;
         float y;
         float width;

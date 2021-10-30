@@ -2,14 +2,15 @@
 #define GFXTK_SWAPCHAINCONFIG_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/PixelFormat.hpp>
 #include <gfxtk/ColorSpace.hpp>
 #include <gfxtk/Window.hpp>
 
 namespace gfxtk {
     namespace backend {
-        class Instance;
-        class SwapChainConfig;
+        struct Instance;
+        struct SwapChainConfig;
     }
 
     /**
@@ -44,7 +45,7 @@ namespace gfxtk {
      * auto swapChain = window->createSwapChain(swapChainConfig);
      * ```
      */
-    class SwapChainConfig {
+    class GFXTK_EXPORT SwapChainConfig {
         friend class Device;
 
     public:

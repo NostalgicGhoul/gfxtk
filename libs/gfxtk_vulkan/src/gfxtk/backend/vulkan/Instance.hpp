@@ -20,11 +20,7 @@ namespace gfxtk::backend {
                 uint32_t vulkanVersion,
                 VkDebugUtilsMessengerEXT vulkanDebugUtilsMessengerEXT,
                 std::vector<char const*> vulkanValidationLayers
-        ) : cachedInitConfig(std::move(cachedInitConfig)),
-            vulkanInstance(vulkanInstance),
-            vulkanVersion(vulkanVersion),
-            vulkanDebugUtilsMessengerEXT(vulkanDebugUtilsMessengerEXT),
-            vulkanValidationLayers(std::move(vulkanValidationLayers)) {}
+        );
         ~Instance();
 
         static std::unique_ptr<Instance> create(InitConfig const& initConfig);

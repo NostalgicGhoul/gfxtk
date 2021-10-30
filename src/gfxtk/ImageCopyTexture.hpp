@@ -2,11 +2,12 @@
 #define GFXTK_IMAGECOPYTEXTURE_HPP
 
 #include <gfxtk/Origin3D.hpp>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/TextureAspect.hpp>
 #include "Texture.hpp"
 
 namespace gfxtk {
-    struct ImageCopyTexture {
+    struct GFXTK_EXPORT ImageCopyTexture {
         Texture texture;
         uint32_t mipLevel;
         Origin3D origin;

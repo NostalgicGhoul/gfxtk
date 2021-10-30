@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "PipelineStage.hpp"
 
 VkPipelineStageFlags gfxtk::backend::PipelineStage::convert(gfxtk::PipelineStage pipelineStage) {
@@ -8,5 +9,7 @@ VkPipelineStageFlags gfxtk::backend::PipelineStage::convert(gfxtk::PipelineStage
             return VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
         case gfxtk::PipelineStage::ColorAttachment:
             return VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+        default:
+            GFXTK_LOG_F("unknown `PipelineStage` passed to `gfxtk::backend::PipelineStage::convert`!");
     }
 }

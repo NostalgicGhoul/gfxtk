@@ -2,15 +2,16 @@
 #define GFXTK_TEXTURE_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 
 namespace gfxtk {
     class Device;
 
     namespace backend {
-        class Texture;
+        struct Texture;
     }
 
-    class Texture {
+    class GFXTK_EXPORT Texture {
     public:
         static Texture create(Device const& device, std::shared_ptr<backend::Texture> backendTexture);
 

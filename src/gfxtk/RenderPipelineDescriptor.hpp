@@ -3,6 +3,7 @@
 
 #include <optional>
 #include <vector>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/PipelineVertexInputStateDescriptor.hpp>
 #include <gfxtk/PrimitiveTopology.hpp>
 #include <gfxtk/PipelineViewportStateDescriptor.hpp>
@@ -15,7 +16,7 @@
 #include "RenderPassAttachment.hpp"
 
 namespace gfxtk {
-    struct RenderPipelineDescriptor {
+    struct GFXTK_EXPORT RenderPipelineDescriptor {
         PipelineLayout pipelineLayout;
         RenderPassAttachment renderPassAttachment;
         Shader vertexShader;

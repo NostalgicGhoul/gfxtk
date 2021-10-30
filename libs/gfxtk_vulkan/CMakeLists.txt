@@ -88,6 +88,8 @@ add_library(gfxtk_vulkan STATIC
 
 target_include_directories(gfxtk_vulkan INTERFACE src)
 
+target_compile_definitions(gfxtk_vulkan PRIVATE GFXTK_BUILD_LIBRARY=1)
+
 target_link_libraries(gfxtk_vulkan
         Vulkan::Vulkan
         VulkanMemoryAllocator

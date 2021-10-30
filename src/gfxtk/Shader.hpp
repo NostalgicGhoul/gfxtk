@@ -3,14 +3,16 @@
 
 #include <memory>
 #include <vector>
+#include <string>
+#include <gfxtk/gfxtk_internal.hpp>
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class Shader;
+        struct Device;
+        struct Shader;
     }
 
-    class Shader {
+    class GFXTK_EXPORT Shader {
         friend class Device;
         friend class Pipeline;
 

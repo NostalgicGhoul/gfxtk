@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "CullMode.hpp"
 
 VkCullModeFlags gfxtk::backend::CullMode::convert(gfxtk::CullMode cullMode) {
@@ -8,5 +9,7 @@ VkCullModeFlags gfxtk::backend::CullMode::convert(gfxtk::CullMode cullMode) {
             return VK_CULL_MODE_BACK_BIT;
         case gfxtk::CullMode::Front:
             return VK_CULL_MODE_FRONT_BIT;
+        default:
+            GFXTK_LOG_F("unknown `CullMode` passed to `gfxtk::backend::CullMode::convert`!");
     }
 }

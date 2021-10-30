@@ -1,11 +1,12 @@
 #ifndef GFXTK_QUEUEFAMILY_HPP
 #define GFXTK_QUEUEFAMILY_HPP
 
+#include "microsoft_fix.hpp"
 #include <cstdlib>
 #include "QueueFlags.hpp"
 
 namespace gfxtk {
-    class QueueFamily {
+    class GFXTK_EXPORT QueueFamily {
     public:
         QueueFamily(size_t id, QueueFlags flags) : _id(id), _flags(flags) {}
 

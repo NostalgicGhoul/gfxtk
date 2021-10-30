@@ -2,16 +2,17 @@
 #define GFXTK_BUFFER_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/BufferUsageFlags.hpp>
 #include <gfxtk/MemoryUsage.hpp>
 
 namespace gfxtk {
     namespace backend {
-        class Buffer;
-        class Device;
+        struct Buffer;
+        struct Device;
     }
 
-    class Buffer {
+    class GFXTK_EXPORT Buffer {
         friend class Device;
         friend class RenderPassEncoder;
 

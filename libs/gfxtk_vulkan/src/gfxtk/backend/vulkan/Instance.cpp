@@ -157,7 +157,7 @@ std::unique_ptr<gfxtk::backend::Instance> gfxtk::backend::Instance::create(gfxtk
     if (initConfig.debugMode) {
         if (gfxtk_backend_vulkan_createDebugUtilsMessengerEXT(
                 vulkanInstance, &debugCreateInfo, nullptr, &vulkanDebugUtilsMessengerEXT) != VK_SUCCESS) {
-            throw std::runtime_error("failed to set up debug messenger!");
+            GFXTK_LOG_F("failed to set up debug messenger for Vulkan backend!");
         }
     }
 
@@ -192,6 +192,18 @@ void gfxtk::backend::Instance::checkValidationLayerSupport(std::vector<char cons
         }
     }
 }
+
+gfxtk::backend::Instance::Instance(
+        gfxtk::InitConfig cachedInitConfig,
+        VkInstance vulkanInstance,
+        uint32_t vulkanVersion,
+        VkDebugUtilsMessengerEXT vulkanDebugUtilsMessengerEXT,
+        std::vector<const char *> vulkanValidationLayers
+) : cachedInitConfig(std::move(cachedInitConfig)),
+    vulkanInstance(vulkanInstance),
+    vulkanVersion(vulkanVersion),
+    vulkanDebugUtilsMessengerEXT(vulkanDebugUtilsMessengerEXT),
+    vulkanValidationLayers(std::move(vulkanValidationLayers)) {}
 
 gfxtk::backend::Instance::~Instance() {
     if (vulkanDebugUtilsMessengerEXT != VK_NULL_HANDLE) {

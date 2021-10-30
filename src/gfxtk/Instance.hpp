@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <optional>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/InitConfig.hpp>
 #include <gfxtk/PixelFormat.hpp>
 #include <gfxtk/ColorSpace.hpp>
@@ -16,7 +17,7 @@ namespace gfxtk {
     class Window;
 
     namespace backend {
-        class Instance;
+        struct Instance;
     }
 
     // NOTE: `Instance` exists as a way to make the "lifetime" of a program written with `gfxtk` easier to manage in C++
@@ -43,7 +44,7 @@ namespace gfxtk {
     //                                                    // it _after_ the instance
     //       auto device = instance.createDevice(...); // Create the device _from_ the instance now.
     //       ```
-    class Instance {
+    class GFXTK_EXPORT Instance {
     public:
         static Instance create(InitConfig const& initConfig);
         Instance(Instance&& other) noexcept;

@@ -2,6 +2,7 @@
 #define GFXTK_COMMANDQUEUE_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/QueueFamily.hpp>
 #include <gfxtk/PipelineStage.hpp>
 #include <gfxtk/PresentationErrors.hpp>
@@ -10,11 +11,11 @@
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class CommandQueue;
+        struct Device;
+        struct CommandQueue;
     }
 
-    class CommandQueue {
+    class GFXTK_EXPORT CommandQueue {
     public:
         static CommandQueue createRenderCommandQueue(
                 std::shared_ptr<backend::Device> const& backendDevice,

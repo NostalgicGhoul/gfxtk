@@ -1,10 +1,11 @@
 #ifndef GFXTK_OFFSET3D_HPP
 #define GFXTK_OFFSET3D_HPP
 
+#include "microsoft_fix.hpp"
 #include <cstdint>
 
 namespace gfxtk {
-    struct Offset3D {
+    struct GFXTK_EXPORT Offset3D {
         int32_t x;
         int32_t y;
         int32_t z;

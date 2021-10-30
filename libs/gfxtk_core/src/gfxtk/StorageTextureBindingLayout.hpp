@@ -1,6 +1,7 @@
 #ifndef GFXTK_STORAGETEXTUREBINDINGLAYOUT_HPP
 #define GFXTK_STORAGETEXTUREBINDINGLAYOUT_HPP
 
+#include "microsoft_fix.hpp"
 #include "PixelFormat.hpp"
 #include "TextureViewType.hpp"
 
@@ -9,7 +10,7 @@ namespace gfxtk {
         WriteOnly,
     };
 
-    struct StorageTextureBindingLayout {
+    struct GFXTK_EXPORT StorageTextureBindingLayout {
         StorageTextureAccess access;
         PixelFormat pixelFormat;
         TextureViewType viewType;

@@ -1,8 +1,10 @@
 #ifndef GFXTK_PIPELINEDEPTHBIASSTATEDESCRIPTOR_HPP
 #define GFXTK_PIPELINEDEPTHBIASSTATEDESCRIPTOR_HPP
 
+#include "microsoft_fix.hpp"
+
 namespace gfxtk {
-    struct PipelineDepthBiasStateDescriptor {
+    struct GFXTK_EXPORT PipelineDepthBiasStateDescriptor {
         float constantFactor;
         float slopeScale;
         float clamp;

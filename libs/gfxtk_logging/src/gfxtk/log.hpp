@@ -2,9 +2,10 @@
 #define GFXTK_LOG_HPP
 
 #include <string>
+#include <gfxtk/gfxtk_internal.hpp>
 
 namespace gfxtk {
-    class log {
+    class GFXTK_EXPORT log {
     public:
         static void init();
         static void deinit();

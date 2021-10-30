@@ -1,11 +1,12 @@
 #ifndef GFXTK_CORE_INITCONFIG_HPP
 #define GFXTK_CORE_INITCONFIG_HPP
 
+#include "microsoft_fix.hpp"
 #include <string>
 #include "Version.hpp"
 
 namespace gfxtk {
-    struct InitConfig {
+    struct GFXTK_EXPORT InitConfig {
         std::string applicationName;
         Version applicationVersion;
         std::string engineName;

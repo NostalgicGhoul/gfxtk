@@ -2,14 +2,15 @@
 #define GFXTK_SEMAPHORE_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class Semaphore;
+        struct Device;
+        struct Semaphore;
     }
 
-    class Semaphore {
+    class GFXTK_EXPORT Semaphore {
         friend class CommandQueue;
         friend class Device;
         friend class SwapChain;

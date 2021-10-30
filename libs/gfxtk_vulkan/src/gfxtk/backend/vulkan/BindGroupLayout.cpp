@@ -11,14 +11,17 @@ VkDescriptorType gfxtk_backend_vulkan_getDescriptorType(gfxtk::BindGroupLayoutEn
                 case gfxtk::BufferBindingType::Storage:
                 case gfxtk::BufferBindingType::ReadOnlyStorage:
                     return VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+                default:
+                    GFXTK_LOG_F("unknown `BufferBindingType` passed to `gfxtk_backend_vulkan_getDescriptorType`!");
             }
-            break;
         case gfxtk::BindingLayoutType::Sampler:
             return VK_DESCRIPTOR_TYPE_SAMPLER;
         case gfxtk::BindingLayoutType::Texture:
             return VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
         case gfxtk::BindingLayoutType::StorageTexture:
             return VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
+        default:
+            GFXTK_LOG_F("unknown `BindingLayoutType` passed to `gfxtk_backend_vulkan_getDescriptorType`!");
     }
 }
 
@@ -56,3 +59,8 @@ std::shared_ptr<gfxtk::backend::BindGroupLayout> gfxtk::backend::BindGroupLayout
 gfxtk::backend::BindGroupLayout::~BindGroupLayout() {
     vkDestroyDescriptorSetLayout(vulkanDevice, vulkanDescriptorSetLayout, nullptr);
 }
+
+gfxtk::backend::BindGroupLayout::BindGroupLayout(
+        VkDevice vulkanDevice,
+        VkDescriptorSetLayout vulkanDescriptorSetLayout
+) : vulkanDevice(vulkanDevice), vulkanDescriptorSetLayout(vulkanDescriptorSetLayout) {}

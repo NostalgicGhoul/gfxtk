@@ -4,6 +4,7 @@
 #include <vector>
 #include <optional>
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/Extent3D.hpp>
 #include <gfxtk/Rect2D.hpp>
 #include <gfxtk/ClearColorValue.hpp>
@@ -17,11 +18,11 @@
 
 namespace gfxtk {
     namespace backend {
-        class CommandBuffer;
-        class CommandEncoder;
+        struct CommandBuffer;
+        struct CommandEncoder;
     }
 
-    class CommandEncoder {
+    class GFXTK_EXPORT CommandEncoder {
         friend class CommandBuffer;
 
     public:

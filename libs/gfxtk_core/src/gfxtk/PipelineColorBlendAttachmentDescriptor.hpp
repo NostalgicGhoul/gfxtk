@@ -1,12 +1,13 @@
 #ifndef GFXTK_PIPELINECOLORBLENDATTACHMENTDESCRIPTOR_HPP
 #define GFXTK_PIPELINECOLORBLENDATTACHMENTDESCRIPTOR_HPP
 
+#include "microsoft_fix.hpp"
 #include "BlendFactor.hpp"
 #include "BlendOp.hpp"
 #include "ColorWriteMask.hpp"
 
 namespace gfxtk {
-    struct PipelineColorBlendAttachmentDescriptor {
+    struct GFXTK_EXPORT PipelineColorBlendAttachmentDescriptor {
         bool isBlendingEnabled;
         BlendFactor sourceColorBlendFactor;
         BlendFactor destinationColorBlendFactor;

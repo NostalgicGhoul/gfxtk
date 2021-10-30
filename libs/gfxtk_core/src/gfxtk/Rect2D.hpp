@@ -1,11 +1,12 @@
 #ifndef GFXTK_RECT2D_HPP
 #define GFXTK_RECT2D_HPP
 
+#include "microsoft_fix.hpp"
 #include "Offset2D.hpp"
 #include "Extent2D.hpp"
 
 namespace gfxtk {
-    struct Rect2D {
+    struct GFXTK_EXPORT Rect2D {
         Offset2D offset;
         Extent2D extent;
 

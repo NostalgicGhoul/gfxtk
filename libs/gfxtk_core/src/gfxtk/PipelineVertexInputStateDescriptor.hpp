@@ -1,11 +1,12 @@
 #ifndef GFXTK_PIPELINEVERTEXINPUTSTATEDESCRIPTOR_HPP
 #define GFXTK_PIPELINEVERTEXINPUTSTATEDESCRIPTOR_HPP
 
+#include "microsoft_fix.hpp"
 #include <vector>
 #include "VertexBufferLayout.hpp"
 
 namespace gfxtk {
-    struct PipelineVertexInputStateDescriptor {
+    struct GFXTK_EXPORT PipelineVertexInputStateDescriptor {
         std::vector<VertexBufferLayout> buffers;
 
         explicit PipelineVertexInputStateDescriptor(std::vector<VertexBufferLayout> buffers)

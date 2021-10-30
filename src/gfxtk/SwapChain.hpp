@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/QueueFamily.hpp>
 #include "Framebuffer.hpp"
 #include "Semaphore.hpp"
@@ -10,14 +11,14 @@
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class SwapChain;
-        class SwapChainConfig;
+        struct Device;
+        struct SwapChain;
+        struct SwapChainConfig;
     }
 
-    class RenderPassAttachment;
+    class GFXTK_EXPORT RenderPassAttachment;
 
-    class SwapChain {
+    class GFXTK_EXPORT SwapChain {
         friend class CommandQueue;
 
     public:

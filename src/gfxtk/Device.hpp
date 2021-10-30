@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <optional>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/QueueFlags.hpp>
 #include <gfxtk/DeviceInfo.hpp>
 #include <gfxtk/SwapChain.hpp>
@@ -20,11 +21,11 @@
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class Instance;
+        struct Device;
+        struct Instance;
     }
 
-    class Device {
+    class GFXTK_EXPORT Device {
         friend class Instance;
 
     public:

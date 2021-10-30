@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "StencilOp.hpp"
 
 VkStencilOp gfxtk::backend::StencilOp::convert(gfxtk::StencilOp stencilOp) {
@@ -18,5 +19,7 @@ VkStencilOp gfxtk::backend::StencilOp::convert(gfxtk::StencilOp stencilOp) {
             return VK_STENCIL_OP_INCREMENT_AND_WRAP;
         case gfxtk::StencilOp::DecrementWrap:
             return VK_STENCIL_OP_DECREMENT_AND_WRAP;
+        default:
+            GFXTK_LOG_F("unknown `StencilOp` found in `gfxtk::backend::StencilOp::convert`!");
     }
 }

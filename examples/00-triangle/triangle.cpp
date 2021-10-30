@@ -1,4 +1,3 @@
-#define private public
 #include <gfxtk/log.hpp>
 #include <gfxtk/Instance.hpp>
 #include <gfxtk/Window.hpp>
@@ -165,7 +164,11 @@ int main() {
             MemoryUsage::CpuToGpu
     );
     void* mappedBuffer = vertexBuffer.map();
-    memcpy(mappedBuffer, vertices.data(), sizeof(vertices[0]) * vertices.size());
+    auto hack = reinterpret_cast<Vertex*>(mappedBuffer);
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        hack[i] = vertices[i];
+    }
+    //memcpy(mappedBuffer, vertices.data(), sizeof(vertices[0]) * vertices.size());
     vertexBuffer.unmap();
 
     while (!window->getShouldClose()) {

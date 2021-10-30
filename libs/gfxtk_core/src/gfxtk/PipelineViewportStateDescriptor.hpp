@@ -1,12 +1,13 @@
 #ifndef GFXTK_PIPELINEVIEWPORTSTATEDESCRIPTOR_HPP
 #define GFXTK_PIPELINEVIEWPORTSTATEDESCRIPTOR_HPP
 
+#include "microsoft_fix.hpp"
 #include <vector>
 #include "Rect2D.hpp"
 #include "Viewport.hpp"
 
 namespace gfxtk {
-    struct PipelineViewportStateDescriptor {
+    struct GFXTK_EXPORT PipelineViewportStateDescriptor {
         std::vector<Viewport> viewports;
         std::vector<Rect2D> scissors;
 

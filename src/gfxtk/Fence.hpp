@@ -2,14 +2,15 @@
 #define GFXTK_FENCE_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class Fence;
+        struct Device;
+        struct Fence;
     }
 
-    class Fence {
+    class GFXTK_EXPORT Fence {
         friend class CommandQueue;
         friend class Device;
         friend class SwapChain;

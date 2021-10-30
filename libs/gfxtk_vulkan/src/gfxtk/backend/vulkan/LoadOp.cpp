@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "LoadOp.hpp"
 
 VkAttachmentLoadOp gfxtk::backend::LoadOp::convert(gfxtk::LoadOp loadOp) {
@@ -8,5 +9,7 @@ VkAttachmentLoadOp gfxtk::backend::LoadOp::convert(gfxtk::LoadOp loadOp) {
             return VK_ATTACHMENT_LOAD_OP_LOAD;
         case gfxtk::LoadOp::Clear:
             return VK_ATTACHMENT_LOAD_OP_CLEAR;
+        default:
+            GFXTK_LOG_F("unknown `LoadOp` passed to `gfxtk::backend::LoadOp::convert`!");
     }
 }

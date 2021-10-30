@@ -1,10 +1,11 @@
 #ifndef GFXTK_CORE_VERSION_HPP
 #define GFXTK_CORE_VERSION_HPP
 
+#include "microsoft_fix.hpp"
 #include <string>
 
 namespace gfxtk {
-    class Version {
+    class GFXTK_EXPORT Version {
         unsigned short _major;
         unsigned short _minor;
         unsigned short _patch;

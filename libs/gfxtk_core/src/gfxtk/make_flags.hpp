@@ -3,6 +3,8 @@
 
 #include <type_traits>
 
+// TODO: Since these are `inline` they shouldn't need `GFXTK_EXPORT` right? If they do need that then that will be
+//       annoying to implement
 #define GFXTK_MAKE_ENUM_CLASS_FLAG(Flags) \
     inline Flags operator|(Flags lhs, Flags rhs) { \
         return static_cast<Flags>( \

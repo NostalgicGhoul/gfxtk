@@ -1,13 +1,14 @@
 #ifndef GFXTK_RENDERPASSATTACHMENTDESCRIPTOR_HPP
 #define GFXTK_RENDERPASSATTACHMENTDESCRIPTOR_HPP
 
+#include "microsoft_fix.hpp"
 #include <vector>
 #include <optional>
 #include "RenderPassColorAttachment.hpp"
 #include "RenderPassDepthStencilAttachment.hpp"
 
 namespace gfxtk {
-    struct RenderPassAttachmentDescriptor {
+    struct GFXTK_EXPORT RenderPassAttachmentDescriptor {
         std::vector<RenderPassColorAttachment> colorAttachments;
         std::optional<RenderPassDepthStencilAttachment> depthStencilAttachment;
 

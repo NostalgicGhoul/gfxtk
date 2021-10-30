@@ -24,16 +24,16 @@ namespace gfxtk::backend {
         void setVertexBuffer(uint32_t binding, std::unique_ptr<backend::Buffer> const& buffer, size_t offset = 0);
         void draw(
                 uint32_t vertexCount,
-                uint32_t firstVertex = 0,
-                uint32_t instanceCount = 1,
-                uint32_t firstInstance = 0
+                uint32_t firstVertex,
+                uint32_t instanceCount,
+                uint32_t firstInstance
         );
         void drawIndexed(
                 uint32_t indexCount,
-                uint32_t firstIndex = 0,
-                int32_t vertexOffset = 0,
-                uint32_t instanceCount = 1,
-                uint32_t firstInstance = 0
+                uint32_t firstIndex,
+                int32_t vertexOffset,
+                uint32_t instanceCount,
+                uint32_t firstInstance
         );
         void drawIndirect(std::unique_ptr<backend::Buffer> const& buffer, size_t offset);
         void drawIndexedIndirect(std::unique_ptr<backend::Buffer> const& buffer, size_t offset);

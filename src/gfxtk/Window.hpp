@@ -4,13 +4,14 @@
 #include <memory>
 #include <string>
 #include <functional>
+#include <gfxtk/gfxtk_internal.hpp>
 
 namespace gfxtk {
     namespace backend {
-        class Window;
+        struct Window;
     }
 
-    class Window {
+    class GFXTK_EXPORT Window {
         friend class Instance;
         friend class SwapChainConfig;
 

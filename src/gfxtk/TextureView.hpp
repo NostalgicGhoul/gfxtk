@@ -1,8 +1,10 @@
 #ifndef GFXTK_TEXTUREVIEW_HPP
 #define GFXTK_TEXTUREVIEW_HPP
 
+#include <gfxtk/gfxtk_internal.hpp>
+
 namespace gfxtk {
-    class TextureView {
+    class GFXTK_EXPORT TextureView {
 
     };
 }

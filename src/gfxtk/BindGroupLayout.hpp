@@ -2,15 +2,16 @@
 #define GFXTK_BINDGROUPLAYOUT_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/BindGroupLayoutDescriptor.hpp>
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class BindGroupLayout;
+        struct Device;
+        struct BindGroupLayout;
     }
 
-    class BindGroupLayout {
+    class GFXTK_EXPORT BindGroupLayout {
         friend class PipelineLayout;
 
     public:

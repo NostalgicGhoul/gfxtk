@@ -1,6 +1,8 @@
 #ifndef GFXTK_SAMPLERBINDINGLAYOUT_HPP
 #define GFXTK_SAMPLERBINDINGLAYOUT_HPP
 
+#include "microsoft_fix.hpp"
+
 namespace gfxtk {
     enum class SamplerBindingType {
         Filtering,
@@ -8,7 +10,7 @@ namespace gfxtk {
         Comparison,
     };
 
-    struct SamplerBindingLayout {
+    struct GFXTK_EXPORT SamplerBindingLayout {
         SamplerBindingType type;
 
         explicit SamplerBindingLayout(SamplerBindingType type)

@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "MemoryUsage.hpp"
 
 VmaMemoryUsage gfxtk::backend::MemoryUsage::convert(gfxtk::MemoryUsage memoryUsage) {
@@ -10,5 +11,7 @@ VmaMemoryUsage gfxtk::backend::MemoryUsage::convert(gfxtk::MemoryUsage memoryUsa
             return VMA_MEMORY_USAGE_CPU_ONLY;
         case gfxtk::MemoryUsage::CpuToGpu:
             return VMA_MEMORY_USAGE_CPU_TO_GPU;
+        default:
+            GFXTK_LOG_F("unknown `MemoryUsage` passed to `gfxtk::backend::MemoryUsage::convert`!");
     }
 }

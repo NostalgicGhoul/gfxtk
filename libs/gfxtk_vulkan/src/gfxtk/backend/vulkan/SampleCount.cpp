@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "SampleCount.hpp"
 
 VkSampleCountFlagBits gfxtk::backend::SampleCount::convert(gfxtk::SampleCount sampleCount) {
@@ -16,5 +17,7 @@ VkSampleCountFlagBits gfxtk::backend::SampleCount::convert(gfxtk::SampleCount sa
             return VK_SAMPLE_COUNT_32_BIT;
         case gfxtk::SampleCount::Count64:
             return VK_SAMPLE_COUNT_64_BIT;
+        default:
+            GFXTK_LOG_F("unknown `SampleCount` passed to `gfxtk::backend::SampleCount::convert`!");
     }
 }

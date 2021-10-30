@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "CompareOp.hpp"
 
 VkCompareOp gfxtk::backend::CompareOp::convert(gfxtk::CompareOp compareOp) {
@@ -18,5 +19,7 @@ VkCompareOp gfxtk::backend::CompareOp::convert(gfxtk::CompareOp compareOp) {
             return VK_COMPARE_OP_GREATER_OR_EQUAL;
         case gfxtk::CompareOp::Always:
             return VK_COMPARE_OP_ALWAYS;
+        default:
+            GFXTK_LOG_F("unknown `CompareOp` passed to `gfxtk::backend::CompareOp::convert`!");
     }
 }

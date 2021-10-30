@@ -2,14 +2,15 @@
 #define GFXTK_COMMANDBUFFER_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include "CommandEncoder.hpp"
 
 namespace gfxtk {
     namespace backend {
-        class CommandBuffer;
+        struct CommandBuffer;
     }
 
-    class CommandBuffer {
+    class GFXTK_EXPORT CommandBuffer {
         friend class CommandQueue;
 
     public:

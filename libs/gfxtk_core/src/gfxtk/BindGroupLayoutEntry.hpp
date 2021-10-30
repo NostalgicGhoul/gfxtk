@@ -1,6 +1,7 @@
 #ifndef GFXTK_BINDGROUPLAYOUTENTRY_HPP
 #define GFXTK_BINDGROUPLAYOUTENTRY_HPP
 
+#include "microsoft_fix.hpp"
 #include <cstdint>
 #include <cassert>
 #include "ShaderStageFlags.hpp"
@@ -11,7 +12,7 @@
 #include "StorageTextureBindingLayout.hpp"
 
 namespace gfxtk {
-    struct BindGroupLayoutEntry {
+    struct GFXTK_EXPORT BindGroupLayoutEntry {
         uint32_t binding;
         ShaderStageFlags shaderStages;
 

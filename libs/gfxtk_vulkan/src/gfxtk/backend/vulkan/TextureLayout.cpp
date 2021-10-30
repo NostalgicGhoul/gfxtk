@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "TextureLayout.hpp"
 
 VkImageLayout gfxtk::backend::TextureLayout::convert(gfxtk::TextureLayout textureLayout) {
@@ -20,5 +21,7 @@ VkImageLayout gfxtk::backend::TextureLayout::convert(gfxtk::TextureLayout textur
             return VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
         case gfxtk::TextureLayout::PresentSource:
             return VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+        default:
+            GFXTK_LOG_F("unknown `TextureLayout` found in `gfxtk::backend::TextureLayout::convert`!");
     }
 }

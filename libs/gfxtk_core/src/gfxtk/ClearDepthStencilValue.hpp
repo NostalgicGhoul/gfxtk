@@ -1,10 +1,11 @@
 #ifndef GFXTK_CLEARDEPTHSTENCILVALUE_HPP
 #define GFXTK_CLEARDEPTHSTENCILVALUE_HPP
 
+#include "microsoft_fix.hpp"
 #include <cstdint>
 
 namespace gfxtk {
-    struct ClearDepthStencilValue {
+    struct GFXTK_EXPORT ClearDepthStencilValue {
         float depth;
         uint32_t stencil;
 

@@ -2,10 +2,11 @@
 #define GFXTK_IMAGECOPYBUFFER_HPP
 
 #include <cstdlib>
+#include <gfxtk/gfxtk_internal.hpp>
 #include "Buffer.hpp"
 
 namespace gfxtk {
-    struct ImageCopyBuffer {
+    struct GFXTK_EXPORT ImageCopyBuffer {
         Buffer const& buffer;
         size_t offset;
         uint32_t bytesPerRow;

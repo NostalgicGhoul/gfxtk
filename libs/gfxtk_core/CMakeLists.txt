@@ -16,6 +16,8 @@ add_library(gfxtk_core STATIC
         src/gfxtk/BlendOp.hpp
         src/gfxtk/BufferBindingLayout.cpp
         src/gfxtk/BufferBindingLayout.hpp
+        src/gfxtk/BufferUsageFlags.cpp
+        src/gfxtk/BufferUsageFlags.hpp
         src/gfxtk/ClearColorValue.cpp
         src/gfxtk/ClearColorValue.hpp
         src/gfxtk/ClearDepthStencilValue.cpp
@@ -42,6 +44,7 @@ add_library(gfxtk_core STATIC
         src/gfxtk/Extent3D.hpp
         src/gfxtk/FramebufferErrors.cpp
         src/gfxtk/FramebufferErrors.hpp
+        src/gfxtk/gfxtk_internal.hpp
         src/gfxtk/IndexType.cpp
         src/gfxtk/IndexType.hpp
         src/gfxtk/InitConfig.cpp
@@ -49,6 +52,9 @@ add_library(gfxtk_core STATIC
         src/gfxtk/LoadOp.cpp
         src/gfxtk/LoadOp.hpp
         src/gfxtk/make_flags.hpp
+        src/gfxtk/MemoryUsage.cpp
+        src/gfxtk/MemoryUsage.hpp
+        src/gfxtk/microsoft_fix.hpp
         src/gfxtk/Offset2D.cpp
         src/gfxtk/Offset2D.hpp
         src/gfxtk/Offset3D.cpp
@@ -127,6 +133,7 @@ add_library(gfxtk_core STATIC
         src/gfxtk/Viewport.hpp
         src/gfxtk/Winding.cpp
         src/gfxtk/Winding.hpp
-        src/gfxtk/MemoryUsage.cpp src/gfxtk/MemoryUsage.hpp src/gfxtk/BufferUsageFlags.cpp src/gfxtk/BufferUsageFlags.hpp)
+)
 
 target_include_directories(gfxtk_core INTERFACE src)
+target_compile_definitions(gfxtk_core PRIVATE GFXTK_BUILD_LIBRARY=1)

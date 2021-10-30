@@ -2,15 +2,16 @@
 #define GFXTK_PIPELINE_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include "RenderPipelineDescriptor.hpp"
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class Pipeline;
+        struct Device;
+        struct Pipeline;
     }
 
-    class Pipeline {
+    class GFXTK_EXPORT Pipeline {
         friend class RenderPassEncoder;
 
     public:

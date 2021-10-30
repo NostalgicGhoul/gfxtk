@@ -94,7 +94,7 @@ std::shared_ptr<gfxtk::backend::SwapChain> gfxtk::backend::SwapChain::create(
     VkSwapchainKHR swapChain;
 
     if (vkCreateSwapchainKHR(backendDevice->logicalDevice, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create swap chain!");
+        GFXTK_LOG_F("failed to create swap chain on Vulkan backend!");
     }
 
     std::vector<VkImage> vulkanSwapChainImages;
@@ -122,7 +122,7 @@ std::shared_ptr<gfxtk::backend::SwapChain> gfxtk::backend::SwapChain::create(
         imageViewCreateInfo.subresourceRange.layerCount = 1;
 
         if (vkCreateImageView(backendDevice->logicalDevice, &imageViewCreateInfo, nullptr, &vulkanSwapChainImageViews[i]) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create image views!");
+            GFXTK_LOG_F("failed to create image views on Vulkan backend!");
         }
     }
 

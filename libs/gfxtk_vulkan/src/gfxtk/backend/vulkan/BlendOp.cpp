@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "BlendOp.hpp"
 
 VkBlendOp gfxtk::backend::BlendOp::convert(gfxtk::BlendOp blendOp) {
@@ -12,5 +13,7 @@ VkBlendOp gfxtk::backend::BlendOp::convert(gfxtk::BlendOp blendOp) {
             return VK_BLEND_OP_MIN;
         case gfxtk::BlendOp::Max:
             return VK_BLEND_OP_MAX;
+        default:
+            GFXTK_LOG_F("unknown `BlendOp` passed to `gfxtk::backend::BlendOp::convert`!");
     }
 }

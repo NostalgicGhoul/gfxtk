@@ -1,11 +1,12 @@
 #ifndef GFXTK_PIPELINEDEPTHSTENCILSTATEDESCRIPTOR_HPP
 #define GFXTK_PIPELINEDEPTHSTENCILSTATEDESCRIPTOR_HPP
 
+#include "microsoft_fix.hpp"
 #include "CompareOp.hpp"
 #include "StencilDescriptor.hpp"
 
 namespace gfxtk {
-    struct PipelineDepthStencilStateDescriptor {
+    struct GFXTK_EXPORT PipelineDepthStencilStateDescriptor {
         bool isDepthWriteEnabled;
         CompareOp depthCompareOp;
         StencilDescriptor frontFaceStencil;

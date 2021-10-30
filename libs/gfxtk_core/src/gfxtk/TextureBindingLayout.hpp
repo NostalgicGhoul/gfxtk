@@ -1,6 +1,7 @@
 #ifndef GFXTK_TEXTUREBINDINGLAYOUT_HPP
 #define GFXTK_TEXTUREBINDINGLAYOUT_HPP
 
+#include "microsoft_fix.hpp"
 #include "TextureViewType.hpp"
 
 namespace gfxtk {
@@ -12,7 +13,7 @@ namespace gfxtk {
         Uint,
     };
 
-    struct TextureBindingLayout {
+    struct GFXTK_EXPORT TextureBindingLayout {
         TextureSampleType sampleType;
         TextureViewType viewType;
         bool multisampled;

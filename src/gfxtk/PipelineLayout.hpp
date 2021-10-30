@@ -3,15 +3,16 @@
 
 #include <memory>
 #include <vector>
+#include <gfxtk/gfxtk_internal.hpp>
 #include "BindGroupLayout.hpp"
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class PipelineLayout;
+        struct Device;
+        struct PipelineLayout;
     }
 
-    class PipelineLayout {
+    class GFXTK_EXPORT PipelineLayout {
         friend class Pipeline;
 
     public:

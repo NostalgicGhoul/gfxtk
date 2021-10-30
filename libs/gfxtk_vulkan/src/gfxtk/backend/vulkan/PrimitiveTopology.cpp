@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "PrimitiveTopology.hpp"
 
 VkPrimitiveTopology gfxtk::backend::PrimitiveTopology::convertToVkPrimitiveTopology(
@@ -10,5 +11,7 @@ VkPrimitiveTopology gfxtk::backend::PrimitiveTopology::convertToVkPrimitiveTopol
             return VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
         case gfxtk::PrimitiveTopology::Triangle:
             return VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+        default:
+            GFXTK_LOG_F("unknown `PrimitiveTopology` passed to `gfxtk::backend::PrimitiveTopology::convertToVkPrimitiveTopology`!");
     }
 }

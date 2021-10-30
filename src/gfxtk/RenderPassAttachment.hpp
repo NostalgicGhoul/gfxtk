@@ -2,15 +2,16 @@
 #define GFXTK_RENDERPASSATTACHMENT_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/RenderPassAttachmentDescriptor.hpp>
 
 namespace gfxtk {
     namespace backend {
-        class Device;
-        class RenderPassAttachment;
+        struct Device;
+        struct RenderPassAttachment;
     }
 
-    class RenderPassAttachment {
+    class GFXTK_EXPORT RenderPassAttachment {
         friend class Pipeline;
         friend class SwapChain;
         friend class CommandEncoder;

@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "BlendFactor.hpp"
 
 VkBlendFactor gfxtk::backend::BlendFactor::convert(gfxtk::BlendFactor blendFactor) {
@@ -40,5 +41,7 @@ VkBlendFactor gfxtk::backend::BlendFactor::convert(gfxtk::BlendFactor blendFacto
             return VK_BLEND_FACTOR_SRC1_ALPHA;
         case gfxtk::BlendFactor::OneMinusSource1Alpha:
             return VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA;
+        default:
+            GFXTK_LOG_F("unknown `BlendFactor` passed to `gfxtk::backend::BlendFactor::convert`!");
     }
 }

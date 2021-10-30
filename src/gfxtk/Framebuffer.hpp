@@ -2,14 +2,15 @@
 #define GFXTK_FRAMEBUFFER_HPP
 
 #include <memory>
+#include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/FramebufferErrors.hpp>
 
 namespace gfxtk {
     namespace backend {
-        class Framebuffer;
+        struct Framebuffer;
     }
 
-    class Framebuffer {
+    class GFXTK_EXPORT Framebuffer {
         friend class CommandEncoder;
         friend class CommandQueue;
         friend class SwapChain;

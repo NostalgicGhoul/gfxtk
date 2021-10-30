@@ -1,10 +1,11 @@
 #ifndef GFXTK_PIPELINEMULTISAMPLESTATEDESCRIPTOR_HPP
 #define GFXTK_PIPELINEMULTISAMPLESTATEDESCRIPTOR_HPP
 
+#include "microsoft_fix.hpp"
 #include "SampleCount.hpp"
 
 namespace gfxtk {
-    struct PipelineMultisampleStateDescriptor {
+    struct GFXTK_EXPORT PipelineMultisampleStateDescriptor {
         SampleCount rasterSampleCount;
         bool isAlphaToCoverageEnabled;
         bool isAlphaToOneEnabled;

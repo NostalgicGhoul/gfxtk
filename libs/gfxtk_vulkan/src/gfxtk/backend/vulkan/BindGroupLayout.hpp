@@ -1,6 +1,12 @@
 #ifndef GFXTK_BACKEND_VULKAN_BINDGROUPLAYOUT_HPP
 #define GFXTK_BACKEND_VULKAN_BINDGROUPLAYOUT_HPP
 
+#ifdef GFXTK_BACKEND_VULKAN_INTERNAL
+#define WINDOWS_SUCKS __declspec(dllexport)
+#else
+#define WINDOWS_SUCKS __declspec(dllimport)
+#endif
+
 #include <vulkan/vulkan.h>
 #include <memory>
 #include <gfxtk/BindGroupLayoutDescriptor.hpp>
@@ -16,8 +22,7 @@ namespace gfxtk::backend {
         VkDevice vulkanDevice;
         VkDescriptorSetLayout vulkanDescriptorSetLayout;
 
-        BindGroupLayout(VkDevice vulkanDevice, VkDescriptorSetLayout vulkanDescriptorSetLayout)
-                : vulkanDevice(vulkanDevice), vulkanDescriptorSetLayout(vulkanDescriptorSetLayout) {}
+        BindGroupLayout(VkDevice vulkanDevice, VkDescriptorSetLayout vulkanDescriptorSetLayout);
         ~BindGroupLayout();
 
     };
