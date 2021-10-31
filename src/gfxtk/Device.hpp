@@ -1,7 +1,7 @@
 #ifndef GFXTK_DEVICE_HPP
 #define GFXTK_DEVICE_HPP
 
-#include <gfxtk/InitConfig.hpp>
+#include <gfxtk/InstanceDescriptor.hpp>
 
 #include <memory>
 #include <optional>
@@ -18,6 +18,7 @@
 #include "CommandQueue.hpp"
 #include "Semaphore.hpp"
 #include "Fence.hpp"
+#include "BindGroup.hpp"
 
 namespace gfxtk {
     namespace backend {
@@ -44,6 +45,10 @@ namespace gfxtk {
                 size_t size,
                 gfxtk::BufferUsageFlags bufferUsageFlags,
                 gfxtk::MemoryUsage memoryUsage
+        );
+        std::vector<BindGroup> createBindGroups(
+                BindGroupLayout const& bindGroupLayout,
+                std::vector<std::vector<BindGroupEntry>> const& groupEntries
         );
 
         void waitForFence(Fence const& fence, uint64_t timeout = std::numeric_limits<uint64_t>::max());

@@ -25,6 +25,10 @@ void gfxtk::RenderPassEncoder::setVertexBuffer(uint32_t binding, gfxtk::Buffer c
     _backendRenderPassEncoder->setVertexBuffer(binding, buffer._backendBuffer, offset);
 }
 
+void gfxtk::RenderPassEncoder::setBindGroup(PipelineLayout const& pipelineLayout, BindGroup const& bindGroup) {
+    _backendRenderPassEncoder->setBindGroup(pipelineLayout._backendPipelineLayout, bindGroup._backendBindGroup);
+}
+
 void gfxtk::RenderPassEncoder::draw(
         uint32_t vertexCount,
         uint32_t firstVertex,

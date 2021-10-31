@@ -4,7 +4,7 @@
 #include <memory>
 #include <optional>
 #include <gfxtk/gfxtk_internal.hpp>
-#include <gfxtk/InitConfig.hpp>
+#include <gfxtk/InstanceDescriptor.hpp>
 #include <gfxtk/PixelFormat.hpp>
 #include <gfxtk/ColorSpace.hpp>
 #include <gfxtk/QueueFlags.hpp>
@@ -46,12 +46,12 @@ namespace gfxtk {
     //       ```
     class GFXTK_EXPORT Instance {
     public:
-        static Instance create(InitConfig const& initConfig);
+        static Instance create(InstanceDescriptor const& initConfig);
         Instance(Instance&& other) noexcept;
         Instance& operator=(Instance&& other) noexcept;
 
         /**
-         * Grab the device that best fits the requirements provided by `InitConfig`. On the majority of systems, this
+         * Grab the device that best fits the requirements provided by `InstanceDescriptor`. On the majority of systems, this
          * will only check that the only GPU on the machine fits the requirements. In the situation that there are
          * multiple GPUs (e.g. laptops with both integrated and dedicated GPUs) we will select the GPU that is the most
          * powerful while still supporting everything. This _does_ mean there is the possibility we will choose the

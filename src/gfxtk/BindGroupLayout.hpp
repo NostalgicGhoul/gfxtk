@@ -12,6 +12,7 @@ namespace gfxtk {
     }
 
     class GFXTK_EXPORT BindGroupLayout {
+        friend class Device;
         friend class PipelineLayout;
 
     public:
@@ -20,6 +21,7 @@ namespace gfxtk {
                 BindGroupLayoutDescriptor const& descriptor
         );
 
+        BindGroupLayout() : _backendBindGroupLayout(nullptr) {}
         ~BindGroupLayout();
 
     private:

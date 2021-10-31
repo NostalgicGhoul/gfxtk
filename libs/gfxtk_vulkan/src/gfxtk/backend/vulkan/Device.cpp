@@ -74,7 +74,7 @@ std::shared_ptr<gfxtk::backend::Device> gfxtk::backend::Device::create(
         queueCreateInfos.push_back(queueCreateInfo);
     }
 
-    // TODO: We need to fill this based on the `InitConfig` requirements
+    // TODO: We need to fill this based on the `InstanceDescriptor` requirements
     VkPhysicalDeviceFeatures deviceFeatures{};
 
     VkDeviceCreateInfo createInfo{};

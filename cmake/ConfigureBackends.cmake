@@ -128,3 +128,8 @@ elseif(GFXTK_GRAPHICS_BACKEND STREQUAL "metal")
 else()
     message(FATAL_ERROR "unknown graphics backend `${GFXTK_GRAPHICS_BACKEND}`!")
 endif()
+
+
+if(GFXTK_VERBOSE_LOGGING)
+    add_definitions(-DGFXTK_VERBOSE_LOGGING=1)
+endif()

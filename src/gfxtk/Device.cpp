@@ -191,6 +191,13 @@ gfxtk::Buffer gfxtk::Device::createBuffer(
     return gfxtk::Buffer::create(_backendDevice, size, bufferUsageFlags, memoryUsage);
 }
 
+std::vector<gfxtk::BindGroup> gfxtk::Device::createBindGroups(
+        gfxtk::BindGroupLayout const& bindGroupLayout,
+        std::vector<std::vector<gfxtk::BindGroupEntry>> const& groupEntries
+) {
+    return BindGroup::createBindGroups(_backendDevice, bindGroupLayout._backendBindGroupLayout, groupEntries);
+}
+
 void gfxtk::Device::waitForFence(gfxtk::Fence const& fence, uint64_t timeout) {
     _backendDevice->waitForFence(fence._backendFence, timeout);
 }

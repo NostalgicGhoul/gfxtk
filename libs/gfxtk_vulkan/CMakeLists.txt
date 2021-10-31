@@ -84,7 +84,7 @@ add_library(gfxtk_vulkan STATIC
         src/gfxtk/backend/vulkan/TriangleFillMode.hpp
         src/gfxtk/backend/vulkan/VertexFormat.cpp
         src/gfxtk/backend/vulkan/VertexFormat.hpp
-)
+        src/gfxtk/backend/vulkan/BindGroup.cpp src/gfxtk/backend/vulkan/BindGroup.hpp src/gfxtk/backend/vulkan/BindGroupEntry.cpp src/gfxtk/backend/vulkan/BindGroupEntry.hpp src/gfxtk/backend/vulkan/Sampler.cpp src/gfxtk/backend/vulkan/Sampler.hpp src/gfxtk/backend/vulkan/TextureView.cpp src/gfxtk/backend/vulkan/TextureView.hpp src/gfxtk/backend/vulkan/BindGroupLayoutEntry.cpp src/gfxtk/backend/vulkan/BindGroupLayoutEntry.hpp)
 
 target_include_directories(gfxtk_vulkan INTERFACE src)
 

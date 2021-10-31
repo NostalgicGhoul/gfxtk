@@ -13,7 +13,7 @@
 
 bool gfxtk::Instance::hasBeenCreated = false;
 
-gfxtk::Instance gfxtk::Instance::create(gfxtk::InitConfig const& initConfig) {
+gfxtk::Instance gfxtk::Instance::create(gfxtk::InstanceDescriptor const& initConfig) {
     if (hasBeenCreated) {
         GFXTK_LOG_F("an instance already exists, only one instance can exist at a time!");
     } else {

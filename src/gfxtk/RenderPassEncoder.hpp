@@ -6,6 +6,7 @@
 #include <gfxtk/IndexType.hpp>
 #include "Pipeline.hpp"
 #include "Buffer.hpp"
+#include "BindGroup.hpp"
 
 namespace gfxtk {
     namespace backend {
@@ -19,6 +20,7 @@ namespace gfxtk {
         void setPipeline(Pipeline const& pipeline);
         void setIndexBuffer(Buffer const& buffer, IndexType type, size_t offset = 0);
         void setVertexBuffer(uint32_t binding, Buffer const& buffer, size_t offset = 0);
+        void setBindGroup(PipelineLayout const& pipelineLayout, BindGroup const& bindGroup);
         void draw(
                 uint32_t vertexCount,
                 uint32_t firstVertex = 0,

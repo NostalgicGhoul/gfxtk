@@ -47,8 +47,8 @@ add_library(gfxtk_core STATIC
         src/gfxtk/gfxtk_internal.hpp
         src/gfxtk/IndexType.cpp
         src/gfxtk/IndexType.hpp
-        src/gfxtk/InitConfig.cpp
-        src/gfxtk/InitConfig.hpp
+        src/gfxtk/InstanceDescriptor.cpp
+        src/gfxtk/InstanceDescriptor.hpp
         src/gfxtk/LoadOp.cpp
         src/gfxtk/LoadOp.hpp
         src/gfxtk/make_flags.hpp
@@ -133,7 +133,7 @@ add_library(gfxtk_core STATIC
         src/gfxtk/Viewport.hpp
         src/gfxtk/Winding.cpp
         src/gfxtk/Winding.hpp
-)
+        src/gfxtk/BindingType.cpp src/gfxtk/BindingType.hpp)
 
 target_include_directories(gfxtk_core INTERFACE src)
 target_compile_definitions(gfxtk_core PRIVATE GFXTK_BUILD_LIBRARY=1)

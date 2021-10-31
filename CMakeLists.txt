@@ -4,6 +4,7 @@ project(gfxtk)
 set(CMAKE_CXX_STANDARD 17)
 
 option(GFXTK_GENERATE_METAL_SHADERS "Generate Metal shaders for all provided shader sources" ON)
+option(GFXTK_VERBOSE_LOGGING "Enabled to log _all_ Vulkan validation layer messages (this can be slow on some systems)" OFF)
 
 set(GFXTK_GRAPHICS_BACKEND "vulkan")
 set(GFXTK_GIT_INFO_HEADER_PATH ${CMAKE_SOURCE_DIR}/libs/gfxtk_logging/src/gfxtk/)
@@ -20,7 +21,7 @@ add_subdirectory(libs/${GFXTK_GRAPHICS_BACKEND_LIB_NAME})
 
 # Include examples...
 add_subdirectory(examples/00-triangle)
-#add_subdirectory(examples/metal-test)
+add_subdirectory(examples/01-uniform-buffers)
 
 # For some dumbass reason I have to include this even though I have `target_include_directories(gfxtk INTERFACE src)`
 # which works perfectly with every other referenced project. Whatever.
@@ -75,7 +76,7 @@ add_library(gfxtk SHARED
         src/gfxtk/TextureView.hpp
         src/gfxtk/Window.cpp
         src/gfxtk/Window.hpp
-)
+        src/gfxtk/BindGroupEntry.cpp src/gfxtk/BindGroupEntry.hpp src/gfxtk/Sampler.cpp src/gfxtk/Sampler.hpp)
 
 target_compile_definitions(gfxtk PRIVATE GFXTK_BUILD_LIBRARY=1)
 

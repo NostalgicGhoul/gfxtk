@@ -61,12 +61,14 @@ VKAPI_ATTR VkBool32 VKAPI_CALL gfxtk_backend_vulkan_debugCallback(
             );
             break;
         case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
+#ifdef GFXTK_VERBOSE_LOGGING
             gfxtk::log::d(
                     "Backend Validation Layer",
                     "Vulkan",
                     pCallbackData->messageIdNumber,
                     pCallbackData->pMessage
             );
+#endif
             break;
         default:
             gfxtk::log::i(
@@ -81,7 +83,7 @@ VKAPI_ATTR VkBool32 VKAPI_CALL gfxtk_backend_vulkan_debugCallback(
     return VK_FALSE;
 }
 
-std::unique_ptr<gfxtk::backend::Instance> gfxtk::backend::Instance::create(gfxtk::InitConfig const& initConfig) {
+std::unique_ptr<gfxtk::backend::Instance> gfxtk::backend::Instance::create(gfxtk::InstanceDescriptor const& initConfig) {
     std::vector<char const*> requiredExtensions;
 
 #ifdef GFXTK_WINDOW_BACKEND_GLFW
@@ -194,7 +196,7 @@ void gfxtk::backend::Instance::checkValidationLayerSupport(std::vector<char cons
 }
 
 gfxtk::backend::Instance::Instance(
-        gfxtk::InitConfig cachedInitConfig,
+        gfxtk::InstanceDescriptor cachedInitConfig,
         VkInstance vulkanInstance,
         uint32_t vulkanVersion,
         VkDebugUtilsMessengerEXT vulkanDebugUtilsMessengerEXT,

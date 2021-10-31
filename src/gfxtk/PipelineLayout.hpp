@@ -14,6 +14,7 @@ namespace gfxtk {
 
     class GFXTK_EXPORT PipelineLayout {
         friend class Pipeline;
+        friend class RenderPassEncoder;
 
     public:
         static PipelineLayout create(

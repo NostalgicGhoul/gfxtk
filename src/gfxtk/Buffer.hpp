@@ -13,10 +13,13 @@ namespace gfxtk {
     }
 
     class GFXTK_EXPORT Buffer {
+        friend class BindGroupEntry;
         friend class Device;
         friend class RenderPassEncoder;
 
     public:
+        Buffer(Buffer&& other) noexcept;
+        Buffer& operator=(Buffer&& other) noexcept;
         ~Buffer();
 
         void* map();

@@ -4,18 +4,18 @@
 #include <vulkan/vulkan.h>
 #include <vector>
 #include <memory>
-#include <gfxtk/InitConfig.hpp>
+#include <gfxtk/InstanceDescriptor.hpp>
 
 namespace gfxtk::backend {
     struct Instance {
-        InitConfig cachedInitConfig;
+        InstanceDescriptor cachedInitConfig;
         VkInstance vulkanInstance;
         uint32_t vulkanVersion;
         VkDebugUtilsMessengerEXT vulkanDebugUtilsMessengerEXT;
         std::vector<char const*> vulkanValidationLayers;
 
         Instance(
-                InitConfig cachedInitConfig,
+                InstanceDescriptor cachedInitConfig,
                 VkInstance vulkanInstance,
                 uint32_t vulkanVersion,
                 VkDebugUtilsMessengerEXT vulkanDebugUtilsMessengerEXT,
@@ -23,7 +23,7 @@ namespace gfxtk::backend {
         );
         ~Instance();
 
-        static std::unique_ptr<Instance> create(InitConfig const& initConfig);
+        static std::unique_ptr<Instance> create(InstanceDescriptor const& initConfig);
 
     private:
         static void checkValidationLayerSupport(std::vector<char const*> const& vulkanValidationLayers);

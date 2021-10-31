@@ -1,7 +1,7 @@
 #ifndef GFXTK_BACKEND_VULKAN_DEVICE_HPP
 #define GFXTK_BACKEND_VULKAN_DEVICE_HPP
 
-#include <gfxtk/InitConfig.hpp>
+#include <gfxtk/InstanceDescriptor.hpp>
 #include <gfxtk/DeviceInfo.hpp>
 #include <vulkan/vulkan.h>
 #include <vector>

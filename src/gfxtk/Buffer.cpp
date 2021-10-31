@@ -20,6 +20,15 @@ gfxtk::Buffer gfxtk::Buffer::create(
 gfxtk::Buffer::Buffer(std::unique_ptr<backend::Buffer> backendBuffer)
         : _backendBuffer(std::move(backendBuffer)) {}
 
+gfxtk::Buffer::Buffer(Buffer&& other) noexcept {
+    this->_backendBuffer = std::move(other._backendBuffer);
+}
+
+gfxtk::Buffer& gfxtk::Buffer::operator=(Buffer&& other) noexcept {
+    this->_backendBuffer = std::move(other._backendBuffer);
+    return *this;
+}
+
 gfxtk::Buffer::~Buffer() = default;
 
 void* gfxtk::Buffer::map() {

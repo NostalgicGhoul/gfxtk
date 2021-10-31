@@ -35,6 +35,22 @@ void gfxtk::backend::RenderPassEncoder::setVertexBuffer(
     vkCmdBindVertexBuffers(vulkanCommandBuffer, binding, 1, &buffer->vulkanBuffer, &vkOffset);
 }
 
+void gfxtk::backend::RenderPassEncoder::setBindGroup(
+        std::shared_ptr<backend::PipelineLayout> const& pipelineLayout,
+        std::shared_ptr<backend::BindGroup> const& backendBindGroup
+) {
+    vkCmdBindDescriptorSets(
+            vulkanCommandBuffer,
+            VK_PIPELINE_BIND_POINT_GRAPHICS,
+            pipelineLayout->vulkanPipelineLayout,
+            0,
+            1,
+            &backendBindGroup->vulkanDescriptorSet,
+            0,
+            nullptr
+    );
+}
+
 void gfxtk::backend::RenderPassEncoder::draw(
         uint32_t vertexCount,
         uint32_t firstVertex,

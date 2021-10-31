@@ -4,7 +4,11 @@
 #include <gfxtk/Device.hpp>
 #include <gfxtk/SwapChainConfig.hpp>
 #include <gfxtk/Shader.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <chrono>
 #include "Vertex.hpp"
+#include "UniformBufferObject.hpp"
 
 using namespace gfxtk;
 
@@ -14,6 +18,7 @@ void createSwapChain(
         SwapChainConfig& swapChainConfig,
         SwapChain& swapChain,
         RenderPassAttachment& renderPassAttachment,
+        BindGroupLayout& uboBindGroupLayout,
         PipelineLayout& renderPipelineLayout,
         Pipeline& renderPipeline,
         CommandQueue& renderCommandQueue
@@ -23,6 +28,7 @@ void createSwapChain(
     // This triggers everything to be freed...
     renderCommandQueue = {};
     renderPipeline = {};
+    uboBindGroupLayout = {};
     renderPipelineLayout = {};
     renderPassAttachment = {};
     swapChain = {};
@@ -43,7 +49,22 @@ void createSwapChain(
                     }
             )
     );
-    renderPipelineLayout = device.createPipelineLayout();
+    uboBindGroupLayout = device.createBindGroupLayout(
+            BindGroupLayoutDescriptor(
+                    {
+                            BindGroupLayoutEntry(
+                                    0,
+                                    ShaderStageFlags::Vertex,
+                                    BufferBindingLayout(BufferBindingType::Uniform)
+                            )
+                    }
+            )
+    );
+    renderPipelineLayout = device.createPipelineLayout(
+            {
+                    uboBindGroupLayout
+            }
+    );
     renderPipeline = device.createRenderPipeline(
             RenderPipelineDescriptor(
                     renderPipelineLayout,
@@ -68,7 +89,7 @@ void createSwapChain(
                             DepthClipMode::Clip,
                             TriangleFillMode::Fill,
                             CullMode::Back,
-                            Winding::Clockwise
+                            Winding::CounterClockwise
                     ),
                     {
                             PipelineColorBlendAttachmentDescriptor(ColorWriteMask::All)
@@ -81,15 +102,36 @@ void createSwapChain(
     renderCommandQueue = device.createRenderCommandQueue(swapChain);
 }
 
+void updateUniformBuffer(Buffer& uniformBuffer, int width, int height) {
+    static auto startTime = std::chrono::high_resolution_clock::now();
+
+    auto currentTime = std::chrono::high_resolution_clock::now();
+    float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
+
+    UniformBufferObject ubo{};
+    ubo.model = glm::rotate(glm::mat4(1.0f), time * glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    ubo.view = glm::lookAt(glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    ubo.proj = glm::perspective(glm::radians(45.0f), float(width) / float(height), 0.1f, 10.0f);
+    ubo.proj[1][1] *= -1;
+
+    void* mappedUBO = uniformBuffer.map();
+    memcpy(mappedUBO, &ubo, sizeof(ubo));
+    uniformBuffer.unmap();
+}
+
 int main() {
     const std::vector<Vertex> vertices = {
-            {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
-            {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
-            {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+            {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+            {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
+            {{0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}},
+            {{-0.5f, 0.5f}, {1.0f, 1.0f, 1.0f}}
+    };
+    const std::vector<uint16_t> indices = {
+            0, 1, 2, 2, 3, 0
     };
 
     InstanceDescriptor instanceDescriptor;
-    instanceDescriptor.applicationName = "Example 00: Triangle";
+    instanceDescriptor.applicationName = "Example 01: Uniform Buffer";
     instanceDescriptor.applicationVersion = Version(0, 0, 1);
     instanceDescriptor.engineName = "gfxtk";
     instanceDescriptor.engineVersion = Version(0, 0, 1);
@@ -115,6 +157,7 @@ int main() {
     SwapChain swapChain;
     RenderPassAttachment renderPassAttachment;
     PipelineLayout renderPipelineLayout;
+    BindGroupLayout uboBindGroupLayout;
     Pipeline renderPipeline;
     CommandQueue renderCommandQueue;
 
@@ -124,6 +167,7 @@ int main() {
             swapChainConfig,
             swapChain,
             renderPassAttachment,
+            uboBindGroupLayout,
             renderPipelineLayout,
             renderPipeline,
             renderCommandQueue
@@ -151,10 +195,53 @@ int main() {
     memcpy(mappedBuffer, vertices.data(), sizeof(vertices[0]) * vertices.size());
     vertexBuffer.unmap();
 
+    Buffer indexBuffer = device.createBuffer(
+            sizeof(indices[0]) * indices.size(),
+            BufferUsageFlags::Index,
+            // For most cases, an index buffer can be `GpuOnly` but I'm too lazy to create a staging buffer atm.
+            MemoryUsage::CpuToGpu
+    );
+    mappedBuffer = indexBuffer.map();
+    memcpy(mappedBuffer, indices.data(), sizeof(indices[0]) * indices.size());
+    indexBuffer.unmap();
+
+    // Create a uniform buffer per frame.
+    std::vector<Buffer> uniformBuffers;
+    uniformBuffers.reserve(swapChain.framesInFlight());
+
+    for (size_t i = 0; i < swapChain.framesInFlight(); ++i) {
+        uniformBuffers.push_back(
+                device.createBuffer(
+                        sizeof(UniformBufferObject),
+                        BufferUsageFlags::Uniform,
+                        MemoryUsage::CpuToGpu
+                )
+        );
+    }
+
+    // Create the bind group entries for each uniform buffer.
+    std::vector<std::vector<BindGroupEntry>> uboBindGroupEntries;
+    uboBindGroupEntries.reserve(uniformBuffers.size());
+
+    for (auto& uniformBuffer : uniformBuffers) {
+        uboBindGroupEntries.emplace_back(
+                std::vector{
+                        BindGroupEntry(uniformBuffer, 0, sizeof(UniformBufferObject))
+                }
+        );
+    }
+
+    // Create the final bind groups we will actually reference in a render pass
+    std::vector<BindGroup> uboBindGroups = device.createBindGroups(
+            uboBindGroupLayout,
+            uboBindGroupEntries
+    );
+
     while (!window->getShouldClose()) {
         Window::pollEvents();
 
         auto currentFrameIndex = swapChain.currentFrameIndex();
+        updateUniformBuffer(uniformBuffers[currentFrameIndex], window->getWidth(), window->getHeight());
         device.waitForFence(inFlightFences[currentFrameIndex]);
         auto currentFramebuffer = swapChain.nextFramebuffer(
                 imageAvailableSemaphores[currentFrameIndex],
@@ -169,6 +256,7 @@ int main() {
                     swapChainConfig,
                     swapChain,
                     renderPassAttachment,
+                    uboBindGroupLayout,
                     renderPipelineLayout,
                     renderPipeline,
                     renderCommandQueue
@@ -190,7 +278,9 @@ int main() {
 
         currentRenderPassEncoder.setPipeline(renderPipeline);
         currentRenderPassEncoder.setVertexBuffer(0, vertexBuffer);
-        currentRenderPassEncoder.draw(vertices.size());
+        currentRenderPassEncoder.setIndexBuffer(indexBuffer, IndexType::Uint16);
+        currentRenderPassEncoder.setBindGroup(renderPipelineLayout, uboBindGroups[currentFrameIndex]);
+        currentRenderPassEncoder.drawIndexed(indices.size());
 
         currentRenderPassEncoder.endRenderPass();
         currentCommandEncoder.endCommandEncoding();
@@ -218,6 +308,7 @@ int main() {
                     swapChainConfig,
                     swapChain,
                     renderPassAttachment,
+                    uboBindGroupLayout,
                     renderPipelineLayout,
                     renderPipeline,
                     renderCommandQueue

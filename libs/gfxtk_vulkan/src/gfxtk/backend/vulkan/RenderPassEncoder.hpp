@@ -6,6 +6,7 @@
 #include <gfxtk/IndexType.hpp>
 #include "Pipeline.hpp"
 #include "Buffer.hpp"
+#include "BindGroup.hpp"
 
 namespace gfxtk::backend {
     struct RenderPassEncoder {
@@ -22,6 +23,10 @@ namespace gfxtk::backend {
         void setPipeline(std::shared_ptr<backend::Pipeline> const& pipeline);
         void setIndexBuffer(std::unique_ptr<backend::Buffer> const& buffer, IndexType type, size_t offset = 0);
         void setVertexBuffer(uint32_t binding, std::unique_ptr<backend::Buffer> const& buffer, size_t offset = 0);
+        void setBindGroup(
+                std::shared_ptr<backend::PipelineLayout> const& pipelineLayout,
+                std::shared_ptr<backend::BindGroup> const& backendBindGroup
+        );
         void draw(
                 uint32_t vertexCount,
                 uint32_t firstVertex,
