@@ -7,7 +7,8 @@ option(GFXTK_GENERATE_METAL_SHADERS "Generate Metal shaders for all provided sha
 option(GFXTK_VERBOSE_LOGGING "Enabled to log _all_ Vulkan validation layer messages (this can be slow on some systems)" OFF)
 
 set(GFXTK_GRAPHICS_BACKEND "vulkan")
-set(GFXTK_GIT_INFO_HEADER_PATH ${CMAKE_SOURCE_DIR}/libs/gfxtk_logging/src/gfxtk/)
+set(GFXTK_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(GFXTK_GIT_INFO_HEADER_PATH ${GFXTK_SOURCE_DIR}/libs/gfxtk_logging/src/gfxtk/)
 include(cmake/GitInfo.cmake)
 include(cmake/ConfigureBackends.cmake)
 include(cmake/Shaders.cmake)

@@ -61,7 +61,7 @@ function(add_gfxtk_shader_library)
     endforeach()
 
     set(FAKE_CPP_FILE ${ABSOLUTE_STAGING_DIR}/shader_empty.cpp)
-    configure_file(${CMAKE_SOURCE_DIR}/cmake/assets/shader_empty.cpp.in ${FAKE_CPP_FILE})
+    configure_file(${GFXTK_SOURCE_DIR}/cmake/assets/shader_empty.cpp.in ${FAKE_CPP_FILE})
 
     add_library(${ARG_TARGET} STATIC
             ${FAKE_CPP_FILE}
