@@ -149,7 +149,7 @@ add_library(gfxtk_core STATIC
         src/gfxtk/Viewport.hpp
         src/gfxtk/Winding.cpp
         src/gfxtk/Winding.hpp
-)
+        src/gfxtk/gfxtk_core.hpp)
 
 target_include_directories(gfxtk_core INTERFACE src)
 target_compile_definitions(gfxtk_core PRIVATE GFXTK_BUILD_LIBRARY=1)

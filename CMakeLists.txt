@@ -81,6 +81,7 @@ add_library(gfxtk SHARED
         src/gfxtk/TextureView.hpp
         src/gfxtk/Window.cpp
         src/gfxtk/Window.hpp
+        src/gfxtk/gfxtk.hpp
 )
 
 target_compile_definitions(gfxtk PRIVATE GFXTK_BUILD_LIBRARY=1)

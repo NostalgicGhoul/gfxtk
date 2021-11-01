@@ -1,9 +1,4 @@
-#include <gfxtk/log.hpp>
-#include <gfxtk/Instance.hpp>
-#include <gfxtk/Window.hpp>
-#include <gfxtk/Device.hpp>
-#include <gfxtk/SwapChainConfig.hpp>
-#include <gfxtk/Shader.hpp>
+#include <gfxtk/gfxtk.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <chrono>

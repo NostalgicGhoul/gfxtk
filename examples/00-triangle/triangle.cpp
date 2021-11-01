@@ -1,9 +1,4 @@
-#include <gfxtk/log.hpp>
-#include <gfxtk/Instance.hpp>
-#include <gfxtk/Window.hpp>
-#include <gfxtk/Device.hpp>
-#include <gfxtk/SwapChainConfig.hpp>
-#include <gfxtk/Shader.hpp>
+#include <gfxtk/gfxtk.hpp>
 #include "Vertex.hpp"
 
 using namespace gfxtk;
