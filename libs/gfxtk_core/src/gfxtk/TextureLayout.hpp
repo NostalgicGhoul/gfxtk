@@ -6,6 +6,7 @@ namespace gfxtk {
         Undefined,
         General,
         ColorAttachment,
+        ColorAttachmentReadOnly,
         DepthStencilAttachment,
         DepthStencilReadOnly,
         ShaderReadOnly,

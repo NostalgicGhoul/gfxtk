@@ -7,8 +7,6 @@ std::vector<std::shared_ptr<gfxtk::backend::BindGroup>> gfxtk::backend::BindGrou
         std::shared_ptr<backend::BindGroupLayout> const& backendBindGroupLayout,
         std::vector<std::vector<BindGroupEntry*>> const& groupEntries
 ) {
-    // TODO: This should be the types found in `layout` multiplied by the size of `groupEntries`
-    //       The index of `groupEntries` should match the `layout`
     std::vector<VkDescriptorPoolSize> poolSizes;
 
     for (auto const& layoutEntry : backendBindGroupLayout->entries) {
@@ -80,10 +78,18 @@ std::vector<std::shared_ptr<gfxtk::backend::BindGroup>> gfxtk::backend::BindGrou
                     break;
                 case BindingType::Sampler:
                     imageInfo.sampler = groupEntries[i][j]->getSampler()->vulkanSampler;
+                    descriptorWrite.pImageInfo = &imageInfo;
                     break;
                 case BindingType::TextureView:
                     imageInfo.imageView = groupEntries[i][j]->getTextureView()->vulkanImageView;
                     imageInfo.imageLayout = backend::TextureLayout::convert(groupEntries[i][j]->getTextureLayout());
+                    descriptorWrite.pImageInfo = &imageInfo;
+                    break;
+                case BindingType::CombinedTextureSampler:
+                    imageInfo.sampler = groupEntries[i][j]->getSampler()->vulkanSampler;
+                    imageInfo.imageView = groupEntries[i][j]->getTextureView()->vulkanImageView;
+                    imageInfo.imageLayout = backend::TextureLayout::convert(groupEntries[i][j]->getTextureLayout());
+                    descriptorWrite.pImageInfo = &imageInfo;
                     break;
             }
 

@@ -15,6 +15,8 @@ VkDescriptorType gfxtk::backend::BindGroupLayoutEntry::getDescriptorType(gfxtk::
             }
         case gfxtk::BindingLayoutType::Sampler:
             return VK_DESCRIPTOR_TYPE_SAMPLER;
+        case gfxtk::BindingLayoutType::CombinedTextureSampler:
+            return VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
         case gfxtk::BindingLayoutType::Texture:
             return VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
         case gfxtk::BindingLayoutType::StorageTexture:

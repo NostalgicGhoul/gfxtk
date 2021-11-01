@@ -8,8 +8,28 @@
 #error target OS is not supported by any existing graphics backend!
 #endif
 
-gfxtk::Texture gfxtk::Texture::create(gfxtk::Device const& device, std::shared_ptr<backend::Texture> backendTexture) {
-    return gfxtk::Texture(std::move(backendTexture));
+gfxtk::Texture gfxtk::Texture::create(
+        std::shared_ptr<backend::Device> const& backendDevice,
+        gfxtk::TextureType type,
+        gfxtk::PixelFormat format,
+        gfxtk::Extent3D extent,
+        uint32_t mipLevels,
+        uint32_t arrayLayers,
+        gfxtk::TextureUsage usage,
+        gfxtk::MemoryUsage memoryUsage
+) {
+    return gfxtk::Texture(
+            backend::Texture::create(
+                    backendDevice,
+                    type,
+                    format,
+                    extent,
+                    mipLevels,
+                    arrayLayers,
+                    usage,
+                    memoryUsage
+            )
+    );
 }
 
 gfxtk::Texture::Texture(std::shared_ptr<backend::Texture> backendTexture)

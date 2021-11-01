@@ -88,6 +88,11 @@ std::shared_ptr<gfxtk::backend::Device> gfxtk::backend::Device::create(
 
     if (swapChainConfig != nullptr) {
         requiredExtensions.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
+#ifdef GFXTK_TARGET_OS_MACOS
+        // Yes I know this is lazy, no I don't care. If you find another device that requires this let me know and I'll
+        // change it for an actual solution but for now this is what we get.
+        requiredExtensions.push_back("VK_KHR_portability_subset");
+#endif
     }
 
     createInfo.enabledExtensionCount = static_cast<uint32_t>(requiredExtensions.size());

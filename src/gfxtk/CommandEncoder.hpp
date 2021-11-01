@@ -9,6 +9,8 @@
 #include <gfxtk/Rect2D.hpp>
 #include <gfxtk/ClearColorValue.hpp>
 #include <gfxtk/ClearDepthStencilValue.hpp>
+#include <gfxtk/AccessFlags.hpp>
+#include <gfxtk/PipelineStage.hpp>
 #include "Buffer.hpp"
 #include "ImageCopyBuffer.hpp"
 #include "ImageCopyTexture.hpp"
@@ -49,18 +51,31 @@ namespace gfxtk {
                 std::optional<ClearDepthStencilValue> clearDepthStencilValue = std::nullopt
         );
 
-//        void copyBufferToBuffer(
-//                Buffer const& source,
-//                size_t sourceOffset,
-//                Buffer const& destination,
-//                size_t destinationOffset,
-//                size_t copySize
-//        );
-//        void copyBufferToTexture(
-//                ImageCopyBuffer const& source,
-//                ImageCopyTexture const& destination,
-//                Extent3D copySize
-//        );
+        void copyBufferToBuffer(
+                Buffer& source,
+                Buffer& destination,
+                size_t copySize
+        ) {
+            return copyBufferToBuffer(
+                    source,
+                    0,
+                    destination,
+                    0,
+                    copySize
+            );
+        }
+        void copyBufferToBuffer(
+                Buffer& source,
+                size_t sourceOffset,
+                Buffer& destination,
+                size_t destinationOffset,
+                size_t copySize
+        );
+        void copyBufferToTexture(
+                ImageCopyBuffer const& source,
+                ImageCopyTexture const& destination,
+                Extent3D copySize
+        );
 //        void copyTextureToBuffer(
 //                ImageCopyTexture const& source,
 //                ImageCopyBuffer const& destination,

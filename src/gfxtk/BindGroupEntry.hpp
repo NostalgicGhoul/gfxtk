@@ -19,6 +19,7 @@ namespace gfxtk {
     public:
         BindGroupEntry(Buffer& buffer, size_t offset, size_t size);
         explicit BindGroupEntry(Sampler& sampler);
+        BindGroupEntry(Sampler& sampler, TextureView& textureView, TextureLayout textureLayout);
         BindGroupEntry(TextureView& textureView, TextureLayout textureLayout);
         ~BindGroupEntry();
 

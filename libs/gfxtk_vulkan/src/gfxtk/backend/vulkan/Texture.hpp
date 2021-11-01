@@ -3,19 +3,38 @@
 
 #include <vulkan/vulkan.h>
 #include <memory>
+#include <vk_mem_alloc.h>
+#include <gfxtk/Extent3D.hpp>
+#include <gfxtk/TextureType.hpp>
+#include <gfxtk/TextureUsage.hpp>
+#include <gfxtk/MemoryUsage.hpp>
+#include "Device.hpp"
+#include "TextureLayout.hpp"
 
 namespace gfxtk::backend {
     struct Texture {
-        static std::shared_ptr<Texture> createRefOnly(VkImage vulkanImage);
+        static std::shared_ptr<Texture> create(
+                std::shared_ptr<backend::Device> const& backendDevice,
+                gfxtk::TextureType type,
+                gfxtk::PixelFormat format,
+                gfxtk::Extent3D extent,
+                uint32_t mipLevels,
+                uint32_t arrayLayers,
+                gfxtk::TextureUsage usage,
+                gfxtk::MemoryUsage memoryUsage
+        );
 
-        // NOTE: If this is null then we don't destroy the image. This is only useful for images we get from the swap
-        //       chain as the swap chain owns those images.
-        VkDevice vulkanDevice;
+        VmaAllocator vulkanMemoryAllocator;
+        VmaAllocation vulkanMemoryAllocation;
         VkImage vulkanImage;
 
-        Texture(VkDevice vulkanDevice, VkImage vulkanImage)
-                : vulkanDevice(vulkanDevice), vulkanImage(vulkanImage) {}
-        ~Texture();
+        Texture(VmaAllocator vulkanMemoryAllocator, VmaAllocation vulkanMemoryAllocation, VkImage vulkanImage)
+                : vulkanMemoryAllocator(vulkanMemoryAllocator),
+                  vulkanMemoryAllocation(vulkanMemoryAllocation),
+                  vulkanImage(vulkanImage) {}
+        ~Texture() {
+            vmaDestroyImage(vulkanMemoryAllocator, vulkanImage, vulkanMemoryAllocation);
+        }
 
     };
 }

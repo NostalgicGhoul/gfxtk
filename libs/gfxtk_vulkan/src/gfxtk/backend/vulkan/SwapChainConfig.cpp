@@ -21,7 +21,7 @@ std::shared_ptr<gfxtk::backend::SwapChainConfig> gfxtk::backend::SwapChainConfig
         gfxtk::ColorSpace colorSpace,
         uint32_t framesInFlight
 ) {
-    VkFormat vulkanPixelFormat = backend::PixelFormat::convertToVkFormat(pixelFormat);
+    VkFormat vulkanPixelFormat = backend::PixelFormat::convert(pixelFormat);
     VkColorSpaceKHR vulkanColorSpace = backend::ColorSpace::convertToVkColorSpaceKHR(colorSpace);
 
 #ifdef GFXTK_WINDOW_BACKEND_GLFW

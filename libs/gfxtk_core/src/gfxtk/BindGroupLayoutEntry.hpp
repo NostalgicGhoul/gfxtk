@@ -10,6 +10,7 @@
 #include "SamplerBindingLayout.hpp"
 #include "TextureBindingLayout.hpp"
 #include "StorageTextureBindingLayout.hpp"
+#include "CombinedTextureSamplerBindingType.hpp"
 
 namespace gfxtk {
     struct GFXTK_EXPORT BindGroupLayoutEntry {
@@ -44,6 +45,14 @@ namespace gfxtk {
         BindGroupLayoutEntry(uint32_t binding, ShaderStageFlags shaderStages, SamplerBindingLayout sampler)
                 : binding(binding), shaderStages(shaderStages), _bindingType(BindingLayoutType::Sampler),
                   _sampler(sampler) {}
+        BindGroupLayoutEntry(
+                uint32_t binding,
+                ShaderStageFlags shaderStages,
+                CombinedTextureSamplerBindingLayout combinedTextureSampler
+        ) : binding(binding),
+            shaderStages(shaderStages),
+            _bindingType(BindingLayoutType::CombinedTextureSampler),
+            _combinedTextureSampler(combinedTextureSampler) {}
         BindGroupLayoutEntry(uint32_t binding, ShaderStageFlags shaderStages, TextureBindingLayout texture)
                 : binding(binding), shaderStages(shaderStages), _bindingType(BindingLayoutType::Texture),
                   _texture(texture) {}
@@ -57,6 +66,9 @@ namespace gfxtk {
                     break;
                 case BindingLayoutType::Sampler:
                     _sampler.~SamplerBindingLayout();
+                    break;
+                case BindingLayoutType::CombinedTextureSampler:
+                    _combinedTextureSampler.~CombinedTextureSamplerBindingLayout();
                     break;
                 case BindingLayoutType::Texture:
                     _texture.~TextureBindingLayout();
@@ -73,6 +85,7 @@ namespace gfxtk {
         union {
             BufferBindingLayout _buffer;
             SamplerBindingLayout _sampler;
+            CombinedTextureSamplerBindingLayout _combinedTextureSampler;
             TextureBindingLayout _texture;
             StorageTextureBindingLayout _storageTexture;
         };

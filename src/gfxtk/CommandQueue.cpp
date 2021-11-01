@@ -10,13 +10,13 @@
 
 gfxtk::CommandQueue gfxtk::CommandQueue::createRenderCommandQueue(
         std::shared_ptr<backend::Device> const& backendDevice,
-        SwapChain const& swapChain,
+        size_t numberCommandBuffers,
         QueueFamily const& graphicsQueueFamily
 ) {
     return gfxtk::CommandQueue(
             backend::CommandQueue::createRenderCommandQueue(
                     backendDevice,
-                    swapChain._backendSwapChain,
+                    numberCommandBuffers,
                     graphicsQueueFamily
             )
     );
@@ -27,8 +27,25 @@ gfxtk::CommandQueue::CommandQueue(std::shared_ptr<backend::CommandQueue> backend
 
 gfxtk::CommandQueue::~CommandQueue() = default;
 
-gfxtk::CommandBuffer gfxtk::CommandQueue::getCommandBufferForFrame(Framebuffer const& currentFramebuffer) {
-    return gfxtk::CommandBuffer(_backendCommandQueue->getCommandBufferForFrame(currentFramebuffer._backendFramebuffer));
+gfxtk::CommandBuffer gfxtk::CommandQueue::getCommandBuffer(size_t commandBufferIndex) {
+    return gfxtk::CommandBuffer(_backendCommandQueue->getCommandBuffer(commandBufferIndex));
+}
+
+void gfxtk::CommandQueue::submit(
+        gfxtk::CommandBuffer& commandBuffer,
+        std::optional<Fence> fence
+) {
+    if (fence.has_value()) {
+        _backendCommandQueue->submit(
+                commandBuffer._backendCommandBuffer,
+                fence.value()._backendFence
+        );
+    } else {
+        _backendCommandQueue->submit(
+                commandBuffer._backendCommandBuffer,
+                nullptr
+        );
+    }
 }
 
 void gfxtk::CommandQueue::submit(

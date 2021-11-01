@@ -167,10 +167,10 @@ gfxtk::QueueFamily const& findRenderQueueFamily(std::vector<gfxtk::QueueFamily> 
     GFXTK_LOG_F("render queue family was not found! (did you request it when creating the device?)");
 }
 
-gfxtk::CommandQueue gfxtk::Device::createRenderCommandQueue(gfxtk::SwapChain const& swapChain) {
+gfxtk::CommandQueue gfxtk::Device::createRenderCommandQueue(size_t numberCommandBuffers) {
     return gfxtk::CommandQueue::createRenderCommandQueue(
             _backendDevice,
-            swapChain,
+            numberCommandBuffers,
             findRenderQueueFamily(_chosenQueueFamilies)
     );
 }
@@ -189,6 +189,46 @@ gfxtk::Buffer gfxtk::Device::createBuffer(
         gfxtk::MemoryUsage memoryUsage
 ) {
     return gfxtk::Buffer::create(_backendDevice, size, bufferUsageFlags, memoryUsage);
+}
+
+gfxtk::Texture gfxtk::Device::createTexture(
+        gfxtk::TextureType type,
+        gfxtk::PixelFormat format,
+        gfxtk::Extent3D extent,
+        uint32_t mipLevels,
+        uint32_t arrayLayers,
+        gfxtk::TextureUsage usage,
+        gfxtk::MemoryUsage memoryUsage
+) {
+    return gfxtk::Texture::create(
+            _backendDevice,
+            type,
+            format,
+            extent,
+            mipLevels,
+            arrayLayers,
+            usage,
+            memoryUsage
+    );
+}
+
+gfxtk::TextureView gfxtk::Device::createTextureView(
+        gfxtk::Texture& texture,
+        gfxtk::TextureViewType type,
+        gfxtk::PixelFormat format,
+        gfxtk::TextureAspect aspect
+) {
+    return gfxtk::TextureView::create(
+            _backendDevice,
+            texture._backendTexture,
+            type,
+            format,
+            aspect
+    );
+}
+
+gfxtk::Sampler gfxtk::Device::createSampler(gfxtk::SamplerDescriptor const& descriptor) {
+    return gfxtk::Sampler::create(_backendDevice, descriptor);
 }
 
 std::vector<gfxtk::BindGroup> gfxtk::Device::createBindGroups(

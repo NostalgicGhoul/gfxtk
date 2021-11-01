@@ -17,7 +17,7 @@ std::shared_ptr<gfxtk::backend::RenderPassAttachment> gfxtk::backend::RenderPass
 
     for (auto const& colorAttachment : descriptor.colorAttachments) {
         VkAttachmentDescription vulkanColorAttachment{};
-        vulkanColorAttachment.format = backend::PixelFormat::convertToVkFormat(colorAttachment.pixelFormat);
+        vulkanColorAttachment.format = backend::PixelFormat::convert(colorAttachment.pixelFormat);
         vulkanColorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
         vulkanColorAttachment.loadOp = backend::LoadOp::convert(colorAttachment.loadOp);
         vulkanColorAttachment.storeOp = backend::StoreOp::convert(colorAttachment.storeOp);
@@ -36,7 +36,7 @@ std::shared_ptr<gfxtk::backend::RenderPassAttachment> gfxtk::backend::RenderPass
     if (descriptor.depthStencilAttachment.has_value()) {
         VkAttachmentDescription vulkanDepthAttachment{};
         vulkanDepthAttachment.format =
-                backend::PixelFormat::convertToVkFormat(descriptor.depthStencilAttachment->pixelFormat);
+                backend::PixelFormat::convert(descriptor.depthStencilAttachment->pixelFormat);
         vulkanDepthAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
         vulkanDepthAttachment.loadOp = backend::LoadOp::convert(descriptor.depthStencilAttachment->depthLoadOp);
         vulkanDepthAttachment.storeOp = backend::StoreOp::convert(descriptor.depthStencilAttachment->depthStoreOp);

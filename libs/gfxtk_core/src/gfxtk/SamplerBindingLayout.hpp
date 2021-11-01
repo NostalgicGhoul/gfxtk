@@ -5,9 +5,6 @@
 
 namespace gfxtk {
     enum class SamplerBindingType {
-        Filtering,
-        NonFiltering,
-        Comparison,
     };
 
     struct GFXTK_EXPORT SamplerBindingLayout {

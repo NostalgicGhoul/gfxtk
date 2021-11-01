@@ -6,7 +6,7 @@
 
 namespace gfxtk::backend {
     struct PixelFormat {
-        static VkFormat convertToVkFormat(gfxtk::PixelFormat pixelFormat);
+        static VkFormat convert(gfxtk::PixelFormat pixelFormat);
 
     };
 }

@@ -4,21 +4,29 @@
 #include <gfxtk/Origin3D.hpp>
 #include <gfxtk/gfxtk_internal.hpp>
 #include <gfxtk/TextureAspect.hpp>
+#include <gfxtk/TextureLayout.hpp>
+#include <gfxtk/PipelineStage.hpp>
 #include "Texture.hpp"
 
 namespace gfxtk {
     struct GFXTK_EXPORT ImageCopyTexture {
-        Texture texture;
-        uint32_t mipLevel;
-        Origin3D origin;
+        Texture const& texture;
+        PipelineStage destinationStage;
+        TextureLayout destinationTextureLayout;
         TextureAspect aspect;
+        Origin3D origin;
 
-        explicit ImageCopyTexture(
-                Texture texture,
-                uint32_t mipLevel = 0,
-                Origin3D origin = {},
-                TextureAspect aspect = TextureAspect::All
-        ) : texture(std::move(texture)), mipLevel(mipLevel), origin(origin), aspect(aspect) {}
+        ImageCopyTexture(
+                Texture const& texture,
+                PipelineStage destinationStage,
+                TextureLayout destinationTextureLayout,
+                TextureAspect aspect = TextureAspect::All,
+                Origin3D origin = {}
+        ) : texture(texture),
+            destinationStage(destinationStage),
+            destinationTextureLayout(destinationTextureLayout),
+            aspect(aspect),
+            origin(origin) {}
 
     };
 }

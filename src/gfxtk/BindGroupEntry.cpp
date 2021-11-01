@@ -15,4 +15,16 @@ gfxtk::BindGroupEntry::BindGroupEntry(gfxtk::Sampler& sampler)
 gfxtk::BindGroupEntry::BindGroupEntry(gfxtk::TextureView& textureView, gfxtk::TextureLayout textureLayout)
         : _backendBindGroupEntry(backend::BindGroupEntry::create(textureView._backendTextureView.get(), textureLayout)) {}
 
+gfxtk::BindGroupEntry::BindGroupEntry(
+        gfxtk::Sampler& sampler,
+        gfxtk::TextureView& textureView,
+        gfxtk::TextureLayout textureLayout
+) : _backendBindGroupEntry(
+        backend::BindGroupEntry::create(
+                sampler._backendSampler.get(),
+                textureView._backendTextureView.get(),
+                textureLayout
+        )
+) {}
+
 gfxtk::BindGroupEntry::~BindGroupEntry() = default;

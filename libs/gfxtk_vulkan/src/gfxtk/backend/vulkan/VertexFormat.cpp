@@ -102,6 +102,6 @@ VkFormat gfxtk::backend::VertexFormat::convertToVkFormat(gfxtk::VertexFormat ver
         case gfxtk::VertexFormat::Int4:
             return VK_FORMAT_R32G32B32A32_SINT;
         default:
-            GFXTK_LOG_F("unknown `VertexFormat` found in `gfxtk::backend::VertexFormat::convertToVkFormat`!");
+            GFXTK_LOG_F("unknown `VertexFormat` found in `gfxtk::backend::VertexFormat::convert`!");
     }
 }

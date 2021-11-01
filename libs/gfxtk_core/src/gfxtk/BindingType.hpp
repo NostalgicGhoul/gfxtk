@@ -5,6 +5,7 @@ namespace gfxtk {
     enum class BindingType {
         Buffer,
         Sampler,
+        CombinedTextureSampler,
         TextureView,
     };
 }

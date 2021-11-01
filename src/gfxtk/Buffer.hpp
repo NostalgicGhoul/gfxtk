@@ -14,6 +14,7 @@ namespace gfxtk {
 
     class GFXTK_EXPORT Buffer {
         friend class BindGroupEntry;
+        friend class CommandEncoder;
         friend class Device;
         friend class RenderPassEncoder;
 

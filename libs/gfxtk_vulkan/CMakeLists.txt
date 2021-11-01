@@ -8,8 +8,16 @@ find_package(Vulkan REQUIRED)
 add_subdirectory(libs/VulkanMemoryAllocator)
 
 add_library(gfxtk_vulkan STATIC
+        src/gfxtk/backend/vulkan/AccessFlags.cpp
+        src/gfxtk/backend/vulkan/AccessFlags.hpp
+        src/gfxtk/backend/vulkan/BindGroup.cpp
+        src/gfxtk/backend/vulkan/BindGroup.hpp
+        src/gfxtk/backend/vulkan/BindGroupEntry.cpp
+        src/gfxtk/backend/vulkan/BindGroupEntry.hpp
         src/gfxtk/backend/vulkan/BindGroupLayout.cpp
         src/gfxtk/backend/vulkan/BindGroupLayout.hpp
+        src/gfxtk/backend/vulkan/BindGroupLayoutEntry.cpp
+        src/gfxtk/backend/vulkan/BindGroupLayoutEntry.hpp
         src/gfxtk/backend/vulkan/BlendFactor.cpp
         src/gfxtk/backend/vulkan/BlendFactor.hpp
         src/gfxtk/backend/vulkan/BlendOp.cpp
@@ -62,6 +70,14 @@ add_library(gfxtk_vulkan STATIC
         src/gfxtk/backend/vulkan/RenderPassEncoder.hpp
         src/gfxtk/backend/vulkan/SampleCount.cpp
         src/gfxtk/backend/vulkan/SampleCount.hpp
+        src/gfxtk/backend/vulkan/Sampler.cpp
+        src/gfxtk/backend/vulkan/Sampler.hpp
+        src/gfxtk/backend/vulkan/SamplerAddressMode.cpp
+        src/gfxtk/backend/vulkan/SamplerAddressMode.hpp
+        src/gfxtk/backend/vulkan/SamplerFilter.cpp
+        src/gfxtk/backend/vulkan/SamplerFilter.hpp
+        src/gfxtk/backend/vulkan/SamplerMipmapMode.cpp
+        src/gfxtk/backend/vulkan/SamplerMipmapMode.hpp
         src/gfxtk/backend/vulkan/Semaphore.cpp
         src/gfxtk/backend/vulkan/Semaphore.hpp
         src/gfxtk/backend/vulkan/Shader.cpp
@@ -78,13 +94,23 @@ add_library(gfxtk_vulkan STATIC
         src/gfxtk/backend/vulkan/SwapChainConfig.hpp
         src/gfxtk/backend/vulkan/Texture.cpp
         src/gfxtk/backend/vulkan/Texture.hpp
+        src/gfxtk/backend/vulkan/TextureAspect.cpp
+        src/gfxtk/backend/vulkan/TextureAspect.hpp
         src/gfxtk/backend/vulkan/TextureLayout.cpp
         src/gfxtk/backend/vulkan/TextureLayout.hpp
+        src/gfxtk/backend/vulkan/TextureType.cpp
+        src/gfxtk/backend/vulkan/TextureType.hpp
+        src/gfxtk/backend/vulkan/TextureUsage.cpp
+        src/gfxtk/backend/vulkan/TextureUsage.hpp
+        src/gfxtk/backend/vulkan/TextureView.cpp
+        src/gfxtk/backend/vulkan/TextureView.hpp
+        src/gfxtk/backend/vulkan/TextureViewType.cpp
+        src/gfxtk/backend/vulkan/TextureViewType.hpp
         src/gfxtk/backend/vulkan/TriangleFillMode.cpp
         src/gfxtk/backend/vulkan/TriangleFillMode.hpp
         src/gfxtk/backend/vulkan/VertexFormat.cpp
         src/gfxtk/backend/vulkan/VertexFormat.hpp
-        src/gfxtk/backend/vulkan/BindGroup.cpp src/gfxtk/backend/vulkan/BindGroup.hpp src/gfxtk/backend/vulkan/BindGroupEntry.cpp src/gfxtk/backend/vulkan/BindGroupEntry.hpp src/gfxtk/backend/vulkan/Sampler.cpp src/gfxtk/backend/vulkan/Sampler.hpp src/gfxtk/backend/vulkan/TextureView.cpp src/gfxtk/backend/vulkan/TextureView.hpp src/gfxtk/backend/vulkan/BindGroupLayoutEntry.cpp src/gfxtk/backend/vulkan/BindGroupLayoutEntry.hpp)
+)
 
 target_include_directories(gfxtk_vulkan INTERFACE src)
 

@@ -22,6 +22,7 @@ add_subdirectory(libs/${GFXTK_GRAPHICS_BACKEND_LIB_NAME})
 # Include examples...
 add_subdirectory(examples/00-triangle)
 add_subdirectory(examples/01-uniform-buffers)
+add_subdirectory(examples/02-textures)
 
 # For some dumbass reason I have to include this even though I have `target_include_directories(gfxtk INTERFACE src)`
 # which works perfectly with every other referenced project. Whatever.
@@ -30,6 +31,8 @@ include_directories(src)
 add_library(gfxtk SHARED
         src/gfxtk/BindGroup.cpp
         src/gfxtk/BindGroup.hpp
+        src/gfxtk/BindGroupEntry.cpp
+        src/gfxtk/BindGroupEntry.hpp
         src/gfxtk/BindGroupLayout.cpp
         src/gfxtk/BindGroupLayout.hpp
         src/gfxtk/Buffer.cpp
@@ -62,6 +65,8 @@ add_library(gfxtk SHARED
         src/gfxtk/RenderPassEncoder.hpp
         src/gfxtk/RenderPipelineDescriptor.cpp
         src/gfxtk/RenderPipelineDescriptor.hpp
+        src/gfxtk/Sampler.cpp
+        src/gfxtk/Sampler.hpp
         src/gfxtk/Semaphore.cpp
         src/gfxtk/Semaphore.hpp
         src/gfxtk/Shader.cpp
@@ -76,7 +81,7 @@ add_library(gfxtk SHARED
         src/gfxtk/TextureView.hpp
         src/gfxtk/Window.cpp
         src/gfxtk/Window.hpp
-        src/gfxtk/BindGroupEntry.cpp src/gfxtk/BindGroupEntry.hpp src/gfxtk/Sampler.cpp src/gfxtk/Sampler.hpp)
+)
 
 target_compile_definitions(gfxtk PRIVATE GFXTK_BUILD_LIBRARY=1)
 

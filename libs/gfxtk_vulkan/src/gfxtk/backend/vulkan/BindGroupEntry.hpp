@@ -16,15 +16,29 @@ namespace gfxtk::backend {
         static std::shared_ptr<BindGroupEntry> create(backend::Sampler* sampler) {
             return std::make_shared<BindGroupEntry>(sampler);
         }
-        static std::shared_ptr<BindGroupEntry> create(backend::TextureView* textureView, gfxtk::TextureLayout textureLayout) {
+        static std::shared_ptr<BindGroupEntry> create(
+                backend::Sampler* sampler,
+                backend::TextureView* textureView,
+                gfxtk::TextureLayout textureLayout
+        ) {
+            return std::make_shared<BindGroupEntry>(sampler, textureView, textureLayout);
+        }
+        static std::shared_ptr<BindGroupEntry> create(
+                backend::TextureView* textureView,
+                gfxtk::TextureLayout textureLayout
+        ) {
             return std::make_shared<BindGroupEntry>(textureView, textureLayout);
         }
 
         BindGroupEntry(backend::Buffer* buffer, size_t offset, size_t size)
                 : _bindingType(BindingType::Buffer), _buffer(buffer), _bufferOffset(offset), _bufferSize(size) {}
         explicit BindGroupEntry(backend::Sampler* sampler)
-                : _bindingType(BindingType::Sampler), _sampler(sampler) {}
-        explicit BindGroupEntry(backend::TextureView* textureView, gfxtk::TextureLayout textureLayout)
+                : _bindingType(BindingType::Sampler), _sampler(sampler), _textureView(nullptr),
+                  _textureLayout(gfxtk::TextureLayout::Undefined) {}
+        BindGroupEntry(backend::Sampler* sampler, backend::TextureView* textureView, gfxtk::TextureLayout textureLayout)
+                : _bindingType(BindingType::CombinedTextureSampler), _sampler(sampler), _textureView(textureView),
+                  _textureLayout(textureLayout) {}
+        BindGroupEntry(backend::TextureView* textureView, gfxtk::TextureLayout textureLayout)
                 : _bindingType(BindingType::TextureView), _textureView(textureView), _textureLayout(textureLayout) {}
 
         [[nodiscard]]
@@ -46,18 +60,19 @@ namespace gfxtk::backend {
         }
         [[nodiscard]]
         Sampler* getSampler() const {
-            assert(_bindingType == BindingType::Sampler && "`getSampler` called on non-sampler `BindGroupEntry`!");
+            assert((_bindingType == BindingType::Sampler || _bindingType == BindingType::CombinedTextureSampler) &&
+                   "`getSampler` called on non-sampler `BindGroupEntry`!");
             return _sampler;
         }
         [[nodiscard]]
         TextureView* getTextureView() const {
-            assert(_bindingType == BindingType::TextureView &&
+            assert((_bindingType == BindingType::TextureView || _bindingType == BindingType::CombinedTextureSampler) &&
                    "`getTextureView` called on non-texture-view `BindGroupEntry`!");
             return _textureView;
         };
         [[nodiscard]]
         gfxtk::TextureLayout getTextureLayout() const {
-            assert(_bindingType == BindingType::TextureView &&
+            assert((_bindingType == BindingType::TextureView || _bindingType == BindingType::CombinedTextureSampler) &&
                    "`getTextureLayout` called on non-texture-view `BindGroupEntry`!");
             return _textureLayout;
         }
@@ -71,8 +86,9 @@ namespace gfxtk::backend {
                 size_t _bufferOffset;
                 size_t _bufferSize;
             };
-            Sampler* _sampler;
             struct {
+                // I've combined these since it is possible to have combined samplers with texture views...
+                Sampler* _sampler;
                 TextureView* _textureView;
                 gfxtk::TextureLayout _textureLayout;
             };

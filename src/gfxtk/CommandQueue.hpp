@@ -19,7 +19,7 @@ namespace gfxtk {
     public:
         static CommandQueue createRenderCommandQueue(
                 std::shared_ptr<backend::Device> const& backendDevice,
-                SwapChain const& swapChain,
+                size_t numberCommandBuffers,
                 QueueFamily const& graphicsQueueFamily
         );
 
@@ -29,8 +29,12 @@ namespace gfxtk {
         [[nodiscard]]
         bool isValid() const { return _backendCommandQueue != nullptr; }
 
-        CommandBuffer getCommandBufferForFrame(Framebuffer const& currentFramebuffer);
+        CommandBuffer getCommandBuffer(size_t commandBufferIndex);
 
+        void submit(
+                CommandBuffer& commandBuffer,
+                std::optional<Fence> fence = std::nullopt
+        );
         void submit(
                 Semaphore& waitSemaphore,
                 PipelineStage waitPipelineStage,

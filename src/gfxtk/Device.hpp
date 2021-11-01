@@ -38,13 +38,31 @@ namespace gfxtk {
         RenderPassAttachment createRenderPassAttachment(RenderPassAttachmentDescriptor const& descriptor);
         PipelineLayout createPipelineLayout(std::vector<BindGroupLayout> const& bindingGroupLayouts = {});
         Pipeline createRenderPipeline(RenderPipelineDescriptor const& descriptor);
-        CommandQueue createRenderCommandQueue(SwapChain const& swapChain);
+        CommandQueue createRenderCommandQueue(size_t numberCommandBuffers);
         Semaphore createSemaphore();
         Fence createFence(bool signaled);
         Buffer createBuffer(
                 size_t size,
                 gfxtk::BufferUsageFlags bufferUsageFlags,
                 gfxtk::MemoryUsage memoryUsage
+        );
+        Texture createTexture(
+                gfxtk::TextureType type,
+                gfxtk::PixelFormat format,
+                gfxtk::Extent3D extent,
+                uint32_t mipLevels,
+                uint32_t arrayLayers,
+                gfxtk::TextureUsage usage,
+                gfxtk::MemoryUsage memoryUsage
+        );
+        TextureView createTextureView(
+                Texture& texture,
+                gfxtk::TextureViewType type,
+                gfxtk::PixelFormat format,
+                gfxtk::TextureAspect aspect
+        );
+        Sampler createSampler(
+                SamplerDescriptor const& descriptor
         );
         std::vector<BindGroup> createBindGroups(
                 BindGroupLayout const& bindGroupLayout,

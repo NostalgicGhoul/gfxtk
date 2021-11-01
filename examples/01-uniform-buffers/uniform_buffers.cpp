@@ -18,7 +18,7 @@ void createSwapChain(
         SwapChainConfig& swapChainConfig,
         SwapChain& swapChain,
         RenderPassAttachment& renderPassAttachment,
-        BindGroupLayout& uboBindGroupLayout,
+        BindGroupLayout const& uboBindGroupLayout,
         PipelineLayout& renderPipelineLayout,
         Pipeline& renderPipeline,
         CommandQueue& renderCommandQueue
@@ -28,7 +28,6 @@ void createSwapChain(
     // This triggers everything to be freed...
     renderCommandQueue = {};
     renderPipeline = {};
-    uboBindGroupLayout = {};
     renderPipelineLayout = {};
     renderPassAttachment = {};
     swapChain = {};
@@ -45,17 +44,6 @@ void createSwapChain(
                                     gfxtk::StoreOp::Store,
                                     TextureLayout::Undefined,
                                     TextureLayout::PresentSource
-                            )
-                    }
-            )
-    );
-    uboBindGroupLayout = device.createBindGroupLayout(
-            BindGroupLayoutDescriptor(
-                    {
-                            BindGroupLayoutEntry(
-                                    0,
-                                    ShaderStageFlags::Vertex,
-                                    BufferBindingLayout(BufferBindingType::Uniform)
                             )
                     }
             )
@@ -157,7 +145,17 @@ int main() {
     SwapChain swapChain;
     RenderPassAttachment renderPassAttachment;
     PipelineLayout renderPipelineLayout;
-    BindGroupLayout uboBindGroupLayout;
+    BindGroupLayout uboBindGroupLayout = device.createBindGroupLayout(
+            BindGroupLayoutDescriptor(
+                    {
+                            BindGroupLayoutEntry(
+                                    0,
+                                    ShaderStageFlags::Vertex,
+                                    BufferBindingLayout(BufferBindingType::Uniform)
+                            )
+                    }
+            )
+    );
     Pipeline renderPipeline;
     CommandQueue renderCommandQueue;
 

@@ -4,7 +4,7 @@
 
 std::shared_ptr<gfxtk::backend::CommandQueue> gfxtk::backend::CommandQueue::createRenderCommandQueue(
         std::shared_ptr<backend::Device> const& backendDevice,
-        std::shared_ptr<backend::SwapChain> const& swapChain,
+        size_t numberCommandBuffers,
         gfxtk::QueueFamily const& graphicsQueue
 ) {
     VkQueue vulkanQueue;
@@ -22,9 +22,7 @@ std::shared_ptr<gfxtk::backend::CommandQueue> gfxtk::backend::CommandQueue::crea
     }
 
     std::vector<VkCommandBuffer> vulkanCommandBuffers;
-    // NOTE: I'm setting the size to the number of image views rather than the number of framebuffers just in case
-    //       someone attempts to create the command queue before setting the render pass for the swap chain
-    vulkanCommandBuffers.resize(swapChain->vulkanSwapChainImageViews.size());
+    vulkanCommandBuffers.resize(numberCommandBuffers);
 
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -44,12 +42,35 @@ std::shared_ptr<gfxtk::backend::CommandQueue> gfxtk::backend::CommandQueue::crea
     );
 }
 
-std::unique_ptr<gfxtk::backend::CommandBuffer> gfxtk::backend::CommandQueue::getCommandBufferForFrame(
-        std::unique_ptr<backend::Framebuffer> const& currentFramebuffer
+std::unique_ptr<gfxtk::backend::CommandBuffer> gfxtk::backend::CommandQueue::getCommandBuffer(
+        size_t commandBufferIndex
 ) {
+    if (commandBufferIndex >= vulkanCommandBuffers.size()) {
+        GFXTK_LOG_F("requested command buffer index was out of range on Vulkan backend!");
+    }
     // NOTE: It is impossible to destroy a `VkCommandBuffer` without destroying the whole `VkCommandPool` so this is
     //       safe to do, it won't destroy our command buffer.
-    return std::make_unique<CommandBuffer>(vulkanCommandBuffers[currentFramebuffer->currentImageIndex]);
+    return std::make_unique<CommandBuffer>(vulkanCommandBuffers[commandBufferIndex]);
+}
+
+void gfxtk::backend::CommandQueue::submit(
+        std::unique_ptr<backend::CommandBuffer> const& backendCommandBuffer,
+        std::shared_ptr<backend::Fence> const& backendFence
+) {
+    VkFence vulkanFence = VK_NULL_HANDLE;
+
+    if (backendFence != nullptr) {
+        vulkanFence = backendFence->vulkanFence;
+    }
+
+    VkSubmitInfo vulkanSubmitInfo{};
+    vulkanSubmitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    vulkanSubmitInfo.commandBufferCount = 1;
+    vulkanSubmitInfo.pCommandBuffers = &backendCommandBuffer->vulkanCommandBuffer;
+
+    if (vkQueueSubmit(vulkanQueue, 1, &vulkanSubmitInfo, vulkanFence) != VK_SUCCESS) {
+        GFXTK_LOG_F("failed to submit command buffer to queue on Vulkan backend!");
+    }
 }
 
 void gfxtk::backend::CommandQueue::submit(

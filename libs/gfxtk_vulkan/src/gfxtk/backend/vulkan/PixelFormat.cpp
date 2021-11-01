@@ -1,7 +1,7 @@
 #include <gfxtk/log.hpp>
 #include "PixelFormat.hpp"
 
-VkFormat gfxtk::backend::PixelFormat::convertToVkFormat(gfxtk::PixelFormat pixelFormat) {
+VkFormat gfxtk::backend::PixelFormat::convert(gfxtk::PixelFormat pixelFormat) {
     switch (pixelFormat) {
         case gfxtk::PixelFormat::Invalid: return VK_FORMAT_UNDEFINED;
         case gfxtk::PixelFormat::R8Unorm: return VK_FORMAT_R8_UNORM;

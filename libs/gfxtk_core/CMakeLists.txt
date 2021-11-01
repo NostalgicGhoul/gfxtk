@@ -4,12 +4,16 @@ project(gfxtk_core)
 set(CMAKE_CXX_STANDARD 17)
 
 add_library(gfxtk_core STATIC
+        src/gfxtk/AccessFlags.cpp
+        src/gfxtk/AccessFlags.hpp
         src/gfxtk/BindGroupLayoutDescriptor.cpp
         src/gfxtk/BindGroupLayoutDescriptor.hpp
         src/gfxtk/BindGroupLayoutEntry.cpp
         src/gfxtk/BindGroupLayoutEntry.hpp
         src/gfxtk/BindingLayoutType.cpp
         src/gfxtk/BindingLayoutType.hpp
+        src/gfxtk/BindingType.cpp
+        src/gfxtk/BindingType.hpp
         src/gfxtk/BlendFactor.cpp
         src/gfxtk/BlendFactor.hpp
         src/gfxtk/BlendOp.cpp
@@ -26,6 +30,8 @@ add_library(gfxtk_core STATIC
         src/gfxtk/ColorSpace.hpp
         src/gfxtk/ColorWriteMask.cpp
         src/gfxtk/ColorWriteMask.hpp
+        src/gfxtk/CombinedTextureSamplerBindingType.cpp
+        src/gfxtk/CombinedTextureSamplerBindingType.hpp
         src/gfxtk/CompareOp.cpp
         src/gfxtk/CompareOp.hpp
         src/gfxtk/RenderPassAttachmentDescriptor.cpp
@@ -95,8 +101,16 @@ add_library(gfxtk_core STATIC
         src/gfxtk/RenderPassDepthStencilAttachment.hpp
         src/gfxtk/SampleCount.cpp
         src/gfxtk/SampleCount.hpp
+        src/gfxtk/SamplerAddressMode.cpp
+        src/gfxtk/SamplerAddressMode.hpp
+        src/gfxtk/SamplerDescriptor.cpp
+        src/gfxtk/SamplerDescriptor.hpp
         src/gfxtk/SamplerBindingLayout.cpp
         src/gfxtk/SamplerBindingLayout.hpp
+        src/gfxtk/SamplerFilter.cpp
+        src/gfxtk/SamplerFilter.hpp
+        src/gfxtk/SamplerMipmapMode.cpp
+        src/gfxtk/SamplerMipmapMode.hpp
         src/gfxtk/ShaderStageFlags.cpp
         src/gfxtk/ShaderStageFlags.hpp
         src/gfxtk/StencilDescriptor.cpp
@@ -115,6 +129,8 @@ add_library(gfxtk_core STATIC
         src/gfxtk/TextureLayout.hpp
         src/gfxtk/TextureType.cpp
         src/gfxtk/TextureType.hpp
+        src/gfxtk/TextureUsage.cpp
+        src/gfxtk/TextureUsage.hpp
         src/gfxtk/TextureViewType.cpp
         src/gfxtk/TextureViewType.hpp
         src/gfxtk/TriangleFillMode.cpp
@@ -133,7 +149,7 @@ add_library(gfxtk_core STATIC
         src/gfxtk/Viewport.hpp
         src/gfxtk/Winding.cpp
         src/gfxtk/Winding.hpp
-        src/gfxtk/BindingType.cpp src/gfxtk/BindingType.hpp)
+)
 
 target_include_directories(gfxtk_core INTERFACE src)
 target_compile_definitions(gfxtk_core PRIVATE GFXTK_BUILD_LIBRARY=1)

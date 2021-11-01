@@ -40,3 +40,38 @@ gfxtk::RenderPassEncoder gfxtk::CommandEncoder::beginRenderPass(
 void gfxtk::CommandEncoder::endCommandEncoding() {
     _backendCommandEncoder->endCommandEncoding();
 }
+
+void gfxtk::CommandEncoder::copyBufferToBuffer(
+        gfxtk::Buffer& source,
+        size_t sourceOffset,
+        gfxtk::Buffer& destination,
+        size_t destinationOffset,
+        size_t copySize
+) {
+    _backendCommandEncoder->copyBufferToBuffer(
+            source._backendBuffer,
+            sourceOffset,
+            destination._backendBuffer,
+            destinationOffset,
+            copySize
+    );
+}
+
+void gfxtk::CommandEncoder::copyBufferToTexture(
+        gfxtk::ImageCopyBuffer const& source,
+        gfxtk::ImageCopyTexture const& destination,
+        gfxtk::Extent3D copySize
+) {
+    _backendCommandEncoder->copyBufferToTexture(
+            source.buffer._backendBuffer,
+            source.offset,
+            source.bytesPerRow,
+            source.rowsPerImage,
+            destination.texture._backendTexture,
+            destination.destinationStage,
+            destination.destinationTextureLayout,
+            destination.origin,
+            destination.aspect,
+            copySize
+    );
+}

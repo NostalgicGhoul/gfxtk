@@ -1,3 +1,4 @@
+#include <gfxtk/log.hpp>
 #include "Buffer.hpp"
 #include "BufferUsageFlags.hpp"
 #include "MemoryUsage.hpp"
@@ -18,7 +19,11 @@ std::unique_ptr<gfxtk::backend::Buffer> gfxtk::backend::Buffer::create(
 
     VkBuffer buffer;
     VmaAllocation allocation;
-    vmaCreateBuffer(backendDevice->allocator, &bufferInfo, &allocInfo, &buffer, &allocation, nullptr);
+
+    if (vmaCreateBuffer(backendDevice->allocator, &bufferInfo, &allocInfo, &buffer, &allocation, nullptr)
+            != VK_SUCCESS) {
+        GFXTK_LOG_F("failed to allocate Buffer on Vulkan backend!");
+    }
 
     return std::make_unique<Buffer>(backendDevice->allocator, allocation, buffer);
 }

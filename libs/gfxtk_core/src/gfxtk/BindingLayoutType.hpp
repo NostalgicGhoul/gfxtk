@@ -5,6 +5,7 @@ namespace gfxtk {
     enum class BindingLayoutType {
         Buffer,
         Sampler,
+        CombinedTextureSampler,
         Texture,
         StorageTexture,
     };

@@ -93,6 +93,12 @@ std::unique_ptr<gfxtk::backend::Instance> gfxtk::backend::Instance::create(gfxtk
     requiredExtensions = std::vector<char const*>(glfwExtensions, glfwExtensions + glfwExtensionCount);
 #endif
 
+#ifdef GFXTK_TARGET_OS_MACOS
+    // Yes I know this is lazy, no I don't care. If you find another device that requires this let me know and I'll
+    // change it for an actual solution but for now this is what we get.
+    requiredExtensions.push_back("VK_KHR_get_physical_device_properties2");
+#endif
+
     // Result variables
     VkInstance vulkanInstance;
     VkDebugUtilsMessengerEXT vulkanDebugUtilsMessengerEXT;

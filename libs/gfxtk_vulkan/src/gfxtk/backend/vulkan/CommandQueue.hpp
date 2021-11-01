@@ -7,22 +7,26 @@
 #include <gfxtk/PipelineStage.hpp>
 #include <gfxtk/PresentationErrors.hpp>
 #include "Device.hpp"
-#include "SwapChain.hpp"
 #include "CommandBuffer.hpp"
+#include "Semaphore.hpp"
+#include "Fence.hpp"
+#include "SwapChain.hpp"
 
 namespace gfxtk::backend {
     struct CommandQueue {
         static std::shared_ptr<CommandQueue> createRenderCommandQueue(
                 std::shared_ptr<backend::Device> const& backendDevice,
-                std::shared_ptr<backend::SwapChain> const& swapChain,
+                size_t numberCommandBuffers,
                 QueueFamily const& graphicsQueue
         );
-        std::unique_ptr<CommandBuffer> getCommandBufferForFrame(
-                std::unique_ptr<backend::Framebuffer> const& currentFramebuffer
+        std::unique_ptr<CommandBuffer> getCommandBuffer(size_t commandBufferIndex);
+        void submit(
+                std::unique_ptr<backend::CommandBuffer> const& backendCommandBuffer,
+                std::shared_ptr<backend::Fence> const& backendFence
         );
         void submit(
                 std::shared_ptr<backend::Semaphore> const& waitBackendSemaphore,
-                PipelineStage waitPipelineStage,
+                gfxtk::PipelineStage waitPipelineStage,
                 std::unique_ptr<backend::CommandBuffer> const& backendCommandBuffer,
                 std::shared_ptr<backend::Semaphore> const& signalBackendSemaphore,
                 std::shared_ptr<backend::Fence> const& backendFence
