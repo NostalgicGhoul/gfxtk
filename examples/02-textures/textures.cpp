@@ -305,10 +305,11 @@ int main() {
     while (!window->getShouldClose()) {
         Window::pollEvents();
 
-        auto currentFrameIndex = swapChain.currentFrameIndex();
+        auto currentFrameIndex = swapChain.nextFrameIndex();
         updateUniformBuffer(uniformBuffers[currentFrameIndex], window->getWidth(), window->getHeight());
         device.waitForFence(inFlightFences[currentFrameIndex]);
-        auto currentFramebuffer = swapChain.nextFramebuffer(
+        auto currentFramebuffer = swapChain.getFramebuffer(
+                currentFrameIndex,
                 imageAvailableSemaphores[currentFrameIndex],
                 inFlightFences[currentFrameIndex]
         );

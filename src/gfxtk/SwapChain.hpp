@@ -35,11 +35,11 @@ namespace gfxtk {
         bool isValid() const { return _backendSwapChain != nullptr; }
 
         void configureFramebuffers(RenderPassAttachment const& renderPassAttachment);
-        Framebuffer nextFramebuffer(Semaphore& frameAvailableSemaphore, Fence& inFlightFence);
+        Framebuffer getFramebuffer(uint32_t index, Semaphore& frameAvailableSemaphore, Fence& inFlightFence);
         [[nodiscard]]
         uint32_t framesInFlight() const;
         [[nodiscard]]
-        uint32_t currentFrameIndex() const;
+        uint32_t nextFrameIndex();
 
     private:
         std::shared_ptr<backend::SwapChain> _backendSwapChain;

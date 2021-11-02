@@ -19,6 +19,17 @@ namespace gfxtk::backend {
                 std::shared_ptr<backend::SwapChainConfig>& config
         );
 
+        std::unique_ptr<backend::Framebuffer> getFramebuffer(
+                uint32_t index,
+                std::shared_ptr<backend::Semaphore> const& backendSemaphore,
+                std::shared_ptr<backend::Fence> const& backendFence,
+                gfxtk::FramebufferErrors* outFramebufferErrors
+        );
+        [[nodiscard]]
+        uint32_t framesInFlight() const { return _framesInFlight; }
+        [[nodiscard]]
+        uint32_t nextFrameIndex();
+
         // Required for destruction
         VkDevice vulkanDevice;
         std::shared_ptr<Surface> surface;
@@ -57,16 +68,6 @@ namespace gfxtk::backend {
 
         void configureFramebuffers(std::shared_ptr<backend::RenderPassAttachment> const& renderPassAttachment);
         void cleanupFramebuffers();
-
-        std::unique_ptr<backend::Framebuffer> nextFramebuffer(
-                std::shared_ptr<backend::Semaphore> const& backendSemaphore,
-                std::shared_ptr<backend::Fence> const& backendFence,
-                gfxtk::FramebufferErrors* outFramebufferErrors
-        );
-        [[nodiscard]]
-        uint32_t framesInFlight() const { return _framesInFlight; }
-        [[nodiscard]]
-        uint32_t currentFrameIndex() const;
 
     };
 }

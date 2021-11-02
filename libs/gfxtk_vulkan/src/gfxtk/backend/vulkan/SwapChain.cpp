@@ -186,7 +186,8 @@ void gfxtk::backend::SwapChain::cleanupFramebuffers() {
     }
 }
 
-std::unique_ptr<gfxtk::backend::Framebuffer> gfxtk::backend::SwapChain::nextFramebuffer(
+std::unique_ptr<gfxtk::backend::Framebuffer> gfxtk::backend::SwapChain::getFramebuffer(
+        uint32_t frameIndex,
         std::shared_ptr<backend::Semaphore> const& backendSemaphore,
         std::shared_ptr<backend::Fence> const& backendFence,
         gfxtk::FramebufferErrors* outFramebufferErrors
@@ -220,11 +221,12 @@ std::unique_ptr<gfxtk::backend::Framebuffer> gfxtk::backend::SwapChain::nextFram
     }
     imagesInFlightFences[imageIndex] = backendFence->vulkanFence;
 
-    VkFramebuffer vulkanFramebuffer = vulkanSwapChainFramebuffers[currentFramebufferIndex];
-    currentFramebufferIndex = (currentFramebufferIndex + 1) % _framesInFlight;
+    VkFramebuffer vulkanFramebuffer = vulkanSwapChainFramebuffers[frameIndex];
     return std::make_unique<backend::Framebuffer>(vulkanFramebuffer, imageIndex);
 }
 
-uint32_t gfxtk::backend::SwapChain::currentFrameIndex() const {
-    return currentFramebufferIndex;
+uint32_t gfxtk::backend::SwapChain::nextFrameIndex() {
+    auto result = currentFramebufferIndex;
+    currentFramebufferIndex = (currentFramebufferIndex + 1) % _framesInFlight;
+    return result;
 }

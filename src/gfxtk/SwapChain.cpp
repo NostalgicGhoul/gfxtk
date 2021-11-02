@@ -28,13 +28,15 @@ void gfxtk::SwapChain::configureFramebuffers(gfxtk::RenderPassAttachment const& 
     _backendSwapChain->configureFramebuffers(renderPassAttachment._backendRenderPassAttachment);
 }
 
-gfxtk::Framebuffer gfxtk::SwapChain::nextFramebuffer(
+gfxtk::Framebuffer gfxtk::SwapChain::getFramebuffer(
+        uint32_t frameIndex,
         gfxtk::Semaphore& frameAvailableSemaphore,
         gfxtk::Fence& inFlightFence
 ) {
     FramebufferErrors outFramebufferErrors = FramebufferErrors::None;
     return gfxtk::Framebuffer(
-            _backendSwapChain->nextFramebuffer(
+            _backendSwapChain->getFramebuffer(
+                    frameIndex,
                     frameAvailableSemaphore._backendSemaphore,
                     inFlightFence._backendFence,
                     &outFramebufferErrors
@@ -47,6 +49,6 @@ uint32_t gfxtk::SwapChain::framesInFlight() const {
     return _backendSwapChain->framesInFlight();
 }
 
-uint32_t gfxtk::SwapChain::currentFrameIndex() const {
-    return _backendSwapChain->currentFrameIndex();
+uint32_t gfxtk::SwapChain::nextFrameIndex() {
+    return _backendSwapChain->nextFrameIndex();
 }
