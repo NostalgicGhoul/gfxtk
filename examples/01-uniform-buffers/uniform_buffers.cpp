@@ -82,7 +82,7 @@ void createSwapChain(
     swapChain.configureFramebuffers(renderPassAttachment);
     // NOTE: Currently I just assume the render queue is the same as the present queue. This isn't true for 100% of
     //       devices but :shrug:
-    renderCommandQueue = device.createRenderCommandQueue(swapChain);
+    renderCommandQueue = device.createRenderCommandQueue(swapChain.framesInFlight());
 }
 
 void updateUniformBuffer(Buffer& uniformBuffer, int width, int height) {
@@ -257,7 +257,7 @@ int main() {
             continue;
         }
 
-        auto currentCommandBuffer = renderCommandQueue.getCommandBufferForFrame(currentFramebuffer);
+        auto currentCommandBuffer = renderCommandQueue.getCommandBuffer(currentFrameIndex);
         auto currentCommandEncoder = currentCommandBuffer.beginCommandEncoding();
         auto currentRenderPassEncoder = currentCommandEncoder.beginRenderPass(
                 renderPassAttachment,
