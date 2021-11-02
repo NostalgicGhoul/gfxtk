@@ -17,7 +17,7 @@ gfxtk::Buffer gfxtk::Buffer::create(
     return Buffer(backend::Buffer::create(backendDevice, size, bufferUsageFlags, memoryUsage));
 }
 
-gfxtk::Buffer::Buffer(std::unique_ptr<backend::Buffer> backendBuffer)
+gfxtk::Buffer::Buffer(std::shared_ptr<backend::Buffer> backendBuffer)
         : _backendBuffer(std::move(backendBuffer)) {}
 
 gfxtk::Buffer::Buffer(Buffer&& other) noexcept {

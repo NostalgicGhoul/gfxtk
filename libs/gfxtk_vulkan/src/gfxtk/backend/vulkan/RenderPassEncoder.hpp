@@ -21,8 +21,8 @@ namespace gfxtk::backend {
         ~RenderPassEncoder();
 
         void setPipeline(std::shared_ptr<backend::Pipeline> const& pipeline);
-        void setIndexBuffer(std::unique_ptr<backend::Buffer> const& buffer, IndexType type, size_t offset = 0);
-        void setVertexBuffer(uint32_t binding, std::unique_ptr<backend::Buffer> const& buffer, size_t offset = 0);
+        void setIndexBuffer(std::shared_ptr<backend::Buffer> const& buffer, IndexType type, size_t offset = 0);
+        void setVertexBuffer(uint32_t binding, std::shared_ptr<backend::Buffer> const& buffer, size_t offset = 0);
         void setBindGroup(
                 std::shared_ptr<backend::PipelineLayout> const& pipelineLayout,
                 std::shared_ptr<backend::BindGroup> const& backendBindGroup
@@ -40,8 +40,8 @@ namespace gfxtk::backend {
                 uint32_t instanceCount,
                 uint32_t firstInstance
         );
-        void drawIndirect(std::unique_ptr<backend::Buffer> const& buffer, size_t offset);
-        void drawIndexedIndirect(std::unique_ptr<backend::Buffer> const& buffer, size_t offset);
+        void drawIndirect(std::shared_ptr<backend::Buffer> const& buffer, size_t offset);
+        void drawIndexedIndirect(std::shared_ptr<backend::Buffer> const& buffer, size_t offset);
         void endRenderPass();
 
     };

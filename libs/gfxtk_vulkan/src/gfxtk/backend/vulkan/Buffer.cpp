@@ -3,7 +3,7 @@
 #include "BufferUsageFlags.hpp"
 #include "MemoryUsage.hpp"
 
-std::unique_ptr<gfxtk::backend::Buffer> gfxtk::backend::Buffer::create(
+std::shared_ptr<gfxtk::backend::Buffer> gfxtk::backend::Buffer::create(
         std::shared_ptr<backend::Device> const& backendDevice,
         size_t size,
         gfxtk::BufferUsageFlags bufferUsageFlags,
@@ -25,7 +25,7 @@ std::unique_ptr<gfxtk::backend::Buffer> gfxtk::backend::Buffer::create(
         GFXTK_LOG_F("failed to allocate Buffer on Vulkan backend!");
     }
 
-    return std::make_unique<Buffer>(backendDevice->allocator, allocation, buffer);
+    return std::make_shared<Buffer>(backendDevice->allocator, allocation, buffer);
 }
 
 gfxtk::backend::Buffer::~Buffer() {

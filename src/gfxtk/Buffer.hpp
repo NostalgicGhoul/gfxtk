@@ -34,9 +34,9 @@ namespace gfxtk {
                 gfxtk::MemoryUsage memoryUsage
         );
 
-        std::unique_ptr<backend::Buffer> _backendBuffer;
+        std::shared_ptr<backend::Buffer> _backendBuffer;
 
-        explicit Buffer(std::unique_ptr<backend::Buffer> backendBuffer);
+        explicit Buffer(std::shared_ptr<backend::Buffer> backendBuffer);
 
     };
 }

@@ -19,7 +19,7 @@ void gfxtk::backend::RenderPassEncoder::setPipeline(std::shared_ptr<backend::Pip
 }
 
 void gfxtk::backend::RenderPassEncoder::setIndexBuffer(
-        std::unique_ptr<backend::Buffer> const& buffer,
+        std::shared_ptr<backend::Buffer> const& buffer,
         gfxtk::IndexType type,
         size_t offset
 ) {
@@ -28,7 +28,7 @@ void gfxtk::backend::RenderPassEncoder::setIndexBuffer(
 
 void gfxtk::backend::RenderPassEncoder::setVertexBuffer(
         uint32_t binding,
-        std::unique_ptr<backend::Buffer> const& buffer,
+        std::shared_ptr<backend::Buffer> const& buffer,
         size_t offset
 ) {
     VkDeviceSize vkOffset = offset;
@@ -70,13 +70,13 @@ void gfxtk::backend::RenderPassEncoder::drawIndexed(
     vkCmdDrawIndexed(vulkanCommandBuffer, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
 }
 
-void gfxtk::backend::RenderPassEncoder::drawIndirect(std::unique_ptr<backend::Buffer> const& buffer, size_t offset) {
+void gfxtk::backend::RenderPassEncoder::drawIndirect(std::shared_ptr<backend::Buffer> const& buffer, size_t offset) {
     // TODO: Is this correct?
     vkCmdDrawIndirect(vulkanCommandBuffer, buffer->vulkanBuffer, offset, 1, 0);
 }
 
 void gfxtk::backend::RenderPassEncoder::drawIndexedIndirect(
-        std::unique_ptr<backend::Buffer> const& buffer,
+        std::shared_ptr<backend::Buffer> const& buffer,
         size_t offset
 ) {
     // TODO: Is this correct?

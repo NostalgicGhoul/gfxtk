@@ -10,7 +10,7 @@
 
 namespace gfxtk::backend {
     struct Buffer {
-        static std::unique_ptr<Buffer> create(
+        static std::shared_ptr<Buffer> create(
                 std::shared_ptr<backend::Device> const& backendDevice,
                 size_t size,
                 gfxtk::BufferUsageFlags bufferUsageFlags,

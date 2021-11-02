@@ -63,9 +63,9 @@ void gfxtk::backend::CommandEncoder::endCommandEncoding() {
 }
 
 void gfxtk::backend::CommandEncoder::copyBufferToBuffer(
-        std::unique_ptr<backend::Buffer> const& source,
+        std::shared_ptr<backend::Buffer> const& source,
         size_t sourceOffset,
-        std::unique_ptr<backend::Buffer> const& destination,
+        std::shared_ptr<backend::Buffer> const& destination,
         size_t destinationOffset,
         size_t copySize
 ) {
@@ -77,7 +77,7 @@ void gfxtk::backend::CommandEncoder::copyBufferToBuffer(
 }
 
 void gfxtk::backend::CommandEncoder::copyBufferToTexture(
-        std::unique_ptr<backend::Buffer> const& buffer,
+        std::shared_ptr<backend::Buffer> const& buffer,
         size_t offset,
         uint32_t bytesPerRow,
         uint32_t rowsPerImage,
