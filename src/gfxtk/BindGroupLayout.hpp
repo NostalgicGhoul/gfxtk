@@ -24,6 +24,9 @@ namespace gfxtk {
         BindGroupLayout() : _backendBindGroupLayout(nullptr) {}
         ~BindGroupLayout();
 
+        [[nodiscard]]
+        bool isValid() const { return _backendBindGroupLayout != nullptr; }
+
     private:
         std::shared_ptr<backend::BindGroupLayout> _backendBindGroupLayout;
 

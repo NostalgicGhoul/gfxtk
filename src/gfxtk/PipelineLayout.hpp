@@ -25,6 +25,9 @@ namespace gfxtk {
         PipelineLayout() : _backendPipelineLayout(nullptr) {}
         ~PipelineLayout();
 
+        [[nodiscard]]
+        bool isValid() const { return _backendPipelineLayout != nullptr; }
+
     private:
         std::shared_ptr<backend::PipelineLayout> _backendPipelineLayout;
 
