@@ -19,8 +19,6 @@ namespace gfxtk {
         friend class RenderPassEncoder;
 
     public:
-        Buffer(Buffer&& other) noexcept;
-        Buffer& operator=(Buffer&& other) noexcept;
         ~Buffer();
 
         void* map();
