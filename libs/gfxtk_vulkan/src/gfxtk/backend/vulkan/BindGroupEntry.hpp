@@ -2,6 +2,7 @@
 #define GFXTK_BACKEND_VULKAN_BINDGROUPENTRY_HPP
 
 #include <memory>
+#include <cassert>
 #include <gfxtk/BindingType.hpp>
 #include "Sampler.hpp"
 #include "TextureView.hpp"

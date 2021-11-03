@@ -29,4 +29,8 @@ gfxtk::SwapChainConfig gfxtk::SwapChainConfig::create(
 gfxtk::SwapChainConfig::SwapChainConfig(std::shared_ptr<backend::SwapChainConfig> backendSwapChainConfig)
         : _backendSwapChainConfig(std::move(backendSwapChainConfig)) {}
 
+void gfxtk::SwapChainConfig::updateExtent(gfxtk::Extent2D newExtent) {
+    _backendSwapChainConfig->updateExtent(newExtent);
+}
+
 gfxtk::SwapChainConfig::~SwapChainConfig() = default;

@@ -6,6 +6,7 @@
 #include <gfxtk/PixelFormat.hpp>
 #include <gfxtk/ColorSpace.hpp>
 #include <gfxtk/Window.hpp>
+#include <gfxtk/Extent2D.hpp>
 
 namespace gfxtk {
     namespace backend {
@@ -56,6 +57,8 @@ namespace gfxtk {
                 ColorSpace colorSpace,
                 uint32_t framesInFlight
         );
+
+        void updateExtent(gfxtk::Extent2D newExtent);
 
         ~SwapChainConfig();
 

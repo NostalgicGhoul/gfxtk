@@ -61,6 +61,11 @@ namespace gfxtk::backend {
                 uint32_t framesInFlight
         );
 
+        void updateExtent(gfxtk::Extent2D newExtent) {
+            extent.width = newExtent.width;
+            extent.height = newExtent.height;
+        }
+
     };
 }
 
