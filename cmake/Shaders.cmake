@@ -10,10 +10,6 @@ function(add_gfxtk_shader_library)
     set(multi_value_args SHADERS)
     cmake_parse_arguments(ARG "" "${one_value_args}" "${multi_value_args}" ${ARGN})
 
-    if(GFXTK_SOURCE_DIR STREQUAL "")
-        get_target_property(GFXTK_SOURCE_DIR gfxtk SOURCE_DIR)
-    endif()
-
     get_filename_component(ABSOLUTE_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/${ARG_OUTPUT}" ABSOLUTE)
     set(ABSOLUTE_STAGING_DIR "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${ARG_OUTPUT}")
 
