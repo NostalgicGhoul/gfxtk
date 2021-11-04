@@ -14,27 +14,27 @@ namespace gfxtk::backend {
         static void deinit();
         static void pollEvents();
 
-        Window(std::string const& title, int width, int height, std::function<void(int, int)> onResized);
+        Window(std::string const& title, int width, int height, std::function<void(int, int)> onFramebufferResized);
         Window(Window const&) = delete;
         Window(Window&& other) noexcept;
         ~Window();
         [[nodiscard]]
         std::string const& getTitle() const { return cachedTitle; }
         [[nodiscard]]
-        int getWidth() const { return cachedWidth; }
+        int getFramebufferWidth() const { return cachedFramebufferWidth; }
         [[nodiscard]]
-        int getHeight() const { return cachedHeight; }
+        int getFramebufferHeight() const { return cachedFramebufferHeight; }
         [[nodiscard]]
         bool getShouldClose() const;
 
         // --== GLFW-specific Window Members ==--
         GLFWwindow* window;
         std::string cachedTitle;
-        int cachedWidth;
-        int cachedHeight;
-        std::function<void(int, int)> onResized;
+        int cachedFramebufferWidth;
+        int cachedFramebufferHeight;
+        std::function<void(int, int)> onFramebufferResized;
 
-        void onWindowResized(int newWidth, int newHeight);
+        void onWindowFramebufferResized(int newWidth, int newHeight);
 
     };
 }

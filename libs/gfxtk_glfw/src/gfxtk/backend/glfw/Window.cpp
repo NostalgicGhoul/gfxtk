@@ -1,10 +1,10 @@
 #include "Window.hpp"
 
-void gfxtk_glfw_windowResizeCallback(GLFWwindow* window, int width, int height) {
+void gfxtk_glfw_windowFramebufferResizeCallback(GLFWwindow* window, int width, int height) {
     auto gfxtkWindow = reinterpret_cast<gfxtk::backend::Window*>(glfwGetWindowUserPointer(window));
 
     if (gfxtkWindow != nullptr) {
-        gfxtkWindow->onWindowResized(width, height);
+        gfxtkWindow->onWindowFramebufferResized(width, height);
     }
 }
 
@@ -26,19 +26,19 @@ gfxtk::backend::Window::Window(
         std::string const& title,
         int width,
         int height,
-        std::function<void(int, int)> onResized
+        std::function<void(int, int)> onFramebufferResized
 ) : window(glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr)),
-    cachedWidth(width),
-    cachedHeight(height),
-    onResized(std::move(onResized)) {
-    glfwSetFramebufferSizeCallback(window, gfxtk_glfw_windowResizeCallback);
+    onFramebufferResized(std::move(onFramebufferResized)) {
+    glfwSetFramebufferSizeCallback(window, gfxtk_glfw_windowFramebufferResizeCallback);
     glfwSetWindowUserPointer(window, this);
+
+    glfwGetFramebufferSize(window, &cachedFramebufferWidth, &cachedFramebufferHeight);
 }
 
 gfxtk::backend::Window::Window(gfxtk::backend::Window&& other) noexcept  {
     window = other.window;
-    cachedWidth = other.cachedWidth;
-    cachedHeight = other.cachedHeight;
+    cachedFramebufferWidth = other.cachedFramebufferWidth;
+    cachedFramebufferHeight = other.cachedFramebufferHeight;
     other.window = nullptr;
     // Replace the entry with the new pointer
     glfwSetWindowUserPointer(window, this);
@@ -53,11 +53,11 @@ bool gfxtk::backend::Window::getShouldClose() const {
     return glfwWindowShouldClose(window);
 }
 
-void gfxtk::backend::Window::onWindowResized(int newWidth, int newHeight) {
-    cachedWidth = newWidth;
-    cachedHeight = newHeight;
+void gfxtk::backend::Window::onWindowFramebufferResized(int newWidth, int newHeight) {
+    cachedFramebufferWidth = newWidth;
+    cachedFramebufferHeight = newHeight;
 
-    if (onResized) {
-        onResized(newWidth, newHeight);
+    if (onFramebufferResized) {
+        onFramebufferResized(newWidth, newHeight);
     }
 }

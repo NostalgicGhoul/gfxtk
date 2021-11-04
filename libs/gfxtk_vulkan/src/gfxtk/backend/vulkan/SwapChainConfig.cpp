@@ -32,8 +32,8 @@ std::shared_ptr<gfxtk::backend::SwapChainConfig> gfxtk::backend::SwapChainConfig
     }
 
     VkExtent2D extent2D{};
-    extent2D.width = window->getWidth();
-    extent2D.height = window->getHeight();
+    extent2D.width = window->getFramebufferWidth();
+    extent2D.height = window->getFramebufferHeight();
 
     return std::make_shared<SwapChainConfig>(
             instance->vulkanInstance,

@@ -63,10 +63,10 @@ void createSwapChain(
                     PipelineViewportStateDescriptor(
                             Viewport(
                                     0, 0,
-                                    static_cast<float>(window->getWidth()), static_cast<float>(window->getHeight()),
+                                    static_cast<float>(window->getFramebufferWidth()), static_cast<float>(window->getFramebufferHeight()),
                                     0, 1
                             ),
-                            Rect2D(0, 0, window->getWidth(), window->getHeight())
+                            Rect2D(0, 0, window->getFramebufferWidth(), window->getFramebufferHeight())
                     ),
                     PipelineRasterizationStateDescriptor(
                             DepthClipMode::Clip,
@@ -234,7 +234,7 @@ int main() {
         Window::pollEvents();
 
         auto currentFrameIndex = swapChain.nextFrameIndex();
-        updateUniformBuffer(uniformBuffers[currentFrameIndex], window->getWidth(), window->getHeight());
+        updateUniformBuffer(uniformBuffers[currentFrameIndex], window->getFramebufferWidth(), window->getFramebufferHeight());
         device.waitForFence(inFlightFences[currentFrameIndex]);
         auto currentFramebuffer = swapChain.getFramebuffer(
                 currentFrameIndex,
@@ -265,7 +265,7 @@ int main() {
                 currentFramebuffer,
                 Rect2D(
                         0, 0,
-                        window->getWidth(), window->getHeight()
+                        window->getFramebufferWidth(), window->getFramebufferHeight()
                 ),
                 ClearColorValue(0, 0, 0, 1)
         );

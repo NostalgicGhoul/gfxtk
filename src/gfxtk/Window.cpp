@@ -40,12 +40,12 @@ std::string const& gfxtk::Window::getTitle() const {
     return _backendWindow->getTitle();
 }
 
-int gfxtk::Window::getWidth() const {
-    return _backendWindow->getWidth();
+int gfxtk::Window::getFramebufferWidth() const {
+    return _backendWindow->getFramebufferWidth();
 }
 
-int gfxtk::Window::getHeight() const {
-    return _backendWindow->getHeight();
+int gfxtk::Window::getFramebufferHeight() const {
+    return _backendWindow->getFramebufferHeight();
 }
 
 bool gfxtk::Window::getShouldClose() const {

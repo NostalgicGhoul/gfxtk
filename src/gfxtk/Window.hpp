@@ -23,9 +23,9 @@ namespace gfxtk {
         [[nodiscard]]
         std::string const& getTitle() const;
         [[nodiscard]]
-        int getWidth() const;
+        int getFramebufferWidth() const;
         [[nodiscard]]
-        int getHeight() const;
+        int getFramebufferHeight() const;
         [[nodiscard]]
         bool getShouldClose() const;
 
