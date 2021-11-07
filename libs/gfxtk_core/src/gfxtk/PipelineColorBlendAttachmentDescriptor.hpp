@@ -19,25 +19,44 @@ namespace gfxtk {
 
         explicit PipelineColorBlendAttachmentDescriptor(ColorWriteMask colorWriteMask)
                 : PipelineColorBlendAttachmentDescriptor(
-                        false,
+                        colorWriteMask,
                         BlendFactor::Zero,
                         BlendFactor::Zero,
                         BlendOp::Add,
                         BlendFactor::Zero,
                         BlendFactor::Zero,
                         BlendOp::Add,
-                        colorWriteMask
+                        false
                 ) {}
 
         PipelineColorBlendAttachmentDescriptor(
-                bool isBlendingEnabled,
+                ColorWriteMask colorWriteMask,
+                BlendFactor sourceColorBlendFactor,
+                BlendFactor destinationColorBlendFactor,
+                BlendOp colorBlendOp,
+                BlendFactor sourceAlphaBlendFactor,
+                BlendFactor destinationAlphaBlendFactor,
+                BlendOp alphaBlendOp
+        ) : PipelineColorBlendAttachmentDescriptor(
+                colorWriteMask,
+                sourceColorBlendFactor,
+                destinationColorBlendFactor,
+                colorBlendOp,
+                sourceAlphaBlendFactor,
+                destinationAlphaBlendFactor,
+                alphaBlendOp,
+                true
+        ) {}
+
+        PipelineColorBlendAttachmentDescriptor(
+                ColorWriteMask colorWriteMask,
                 BlendFactor sourceColorBlendFactor,
                 BlendFactor destinationColorBlendFactor,
                 BlendOp colorBlendOp,
                 BlendFactor sourceAlphaBlendFactor,
                 BlendFactor destinationAlphaBlendFactor,
                 BlendOp alphaBlendOp,
-                ColorWriteMask colorWriteMask
+                bool isBlendingEnabled
         ) : isBlendingEnabled(isBlendingEnabled),
             sourceColorBlendFactor(sourceColorBlendFactor),
             destinationColorBlendFactor(destinationColorBlendFactor),
