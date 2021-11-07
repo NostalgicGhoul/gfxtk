@@ -178,10 +178,10 @@ std::shared_ptr<gfxtk::backend::Pipeline> gfxtk::backend::Pipeline::createRender
     colorBlending.pAttachments = vulkanColorBlendAttachments.data();
     colorBlending.logicOpEnable = VK_FALSE;
     colorBlending.logicOp = VK_LOGIC_OP_COPY;
-    colorBlending.blendConstants[0] = 0.0f;
-    colorBlending.blendConstants[1] = 0.0f;
-    colorBlending.blendConstants[2] = 0.0f;
-    colorBlending.blendConstants[3] = 0.0f;
+    colorBlending.blendConstants[0] = 1.0f;
+    colorBlending.blendConstants[1] = 1.0f;
+    colorBlending.blendConstants[2] = 1.0f;
+    colorBlending.blendConstants[3] = 1.0f;
 
     VkPipelineDepthStencilStateCreateInfo depthStencil{};
     if (depthStencilState.has_value()) {
