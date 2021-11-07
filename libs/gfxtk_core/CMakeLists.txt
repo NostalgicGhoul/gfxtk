@@ -53,6 +53,16 @@ add_library(gfxtk_core STATIC
         src/gfxtk/gfxtk_internal.hpp
         src/gfxtk/IndexType.cpp
         src/gfxtk/IndexType.hpp
+        src/gfxtk/InputAction.cpp
+        src/gfxtk/InputAction.hpp
+        src/gfxtk/InputAxis.cpp
+        src/gfxtk/InputAxis.hpp
+        src/gfxtk/InputButton.cpp
+        src/gfxtk/InputButton.hpp
+        src/gfxtk/InputJoystick.cpp
+        src/gfxtk/InputJoystick.hpp
+        src/gfxtk/InputPointer.cpp
+        src/gfxtk/InputPointer.hpp
         src/gfxtk/InstanceDescriptor.cpp
         src/gfxtk/InstanceDescriptor.hpp
         src/gfxtk/LoadOp.cpp
@@ -149,7 +159,8 @@ add_library(gfxtk_core STATIC
         src/gfxtk/Viewport.hpp
         src/gfxtk/Winding.cpp
         src/gfxtk/Winding.hpp
-        src/gfxtk/gfxtk_core.hpp)
+        src/gfxtk/gfxtk_core.hpp
+)
 
 target_include_directories(gfxtk_core INTERFACE src)
 target_compile_definitions(gfxtk_core PRIVATE GFXTK_BUILD_LIBRARY=1)

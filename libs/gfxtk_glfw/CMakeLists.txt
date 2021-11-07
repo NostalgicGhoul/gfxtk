@@ -16,5 +16,6 @@ target_compile_definitions(gfxtk_glfw PRIVATE GFXTK_BUILD_LIBRARY=1)
 
 target_link_libraries(gfxtk_glfw
         glfw
+        gfxtk_core
         gfxtk_logging
 )

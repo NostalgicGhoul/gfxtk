@@ -5,6 +5,12 @@
 #include <string>
 #include <functional>
 #include <gfxtk/gfxtk_internal.hpp>
+#include <gfxtk/InputAction.hpp>
+#include <gfxtk/InputAxis.hpp>
+#include <gfxtk/InputButton.hpp>
+#include <gfxtk/InputJoystick.hpp>
+#include <gfxtk/InputPointer.hpp>
+#include <glm/glm.hpp>
 
 namespace gfxtk {
     namespace backend {
@@ -27,7 +33,11 @@ namespace gfxtk {
         [[nodiscard]]
         int getFramebufferHeight() const;
         [[nodiscard]]
+        glm::vec2 getPointerPosition() const;
+        [[nodiscard]]
         bool getShouldClose() const;
+        void setOnButtonInput(std::function<void(InputButton, InputAction)> onButtonInput);
+        void setOnPointerInput(std::function<void(InputPointer, InputAction)> onPointerInput);
 
     private:
         static std::unique_ptr<Window> create(
@@ -39,7 +49,7 @@ namespace gfxtk {
 
         std::shared_ptr<backend::Window> _backendWindow;
 
-        Window(std::string const& title, int width, int height, std::function<void(int, int)> onResized);
+        Window(std::string const& title, int width, int height, std::function<void(int, int)> const& onResized);
 
     };
 }

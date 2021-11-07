@@ -31,7 +31,7 @@ void gfxtk::Window::pollEvents() {
     backend::Window::pollEvents();
 }
 
-gfxtk::Window::Window(std::string const& title, int width, int height, std::function<void(int, int)> onResized)
+gfxtk::Window::Window(std::string const& title, int width, int height, std::function<void(int, int)> const& onResized)
         : _backendWindow(std::make_shared<backend::Window>(title, width, height, onResized)) {
     GFXTK_LOG_I("created window with title \"" + title + "\"");
 }
@@ -48,6 +48,21 @@ int gfxtk::Window::getFramebufferHeight() const {
     return _backendWindow->getFramebufferHeight();
 }
 
+glm::vec2 gfxtk::Window::getPointerPosition() const {
+    return glm::vec2(
+            _backendWindow->getPointerX(),
+            _backendWindow->getPointerY()
+    );
+}
+
 bool gfxtk::Window::getShouldClose() const {
     return _backendWindow->getShouldClose();
+}
+
+void gfxtk::Window::setOnButtonInput(std::function<void(InputButton, InputAction)> onButtonInput) {
+    _backendWindow->setOnButtonInput(std::move(onButtonInput));
+}
+
+void gfxtk::Window::setOnPointerInput(std::function<void(InputPointer, InputAction)> onPointerInput) {
+    _backendWindow->setOnPointerInput(std::move(onPointerInput));
 }
