@@ -35,6 +35,8 @@ namespace gfxtk::backend {
         float getPointerY() const { return cachedPointerY; }
         [[nodiscard]]
         bool getShouldClose() const;
+        [[nodiscard]]
+        float getSuggestedZoom() const { return float(cachedFramebufferWidth) / float(cachedWindowWidth); }
 
         void setOnButtonInput(std::function<void(InputButton, InputAction)> onButtonInput) {
             this->onButtonInput = std::move(onButtonInput);

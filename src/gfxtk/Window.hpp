@@ -36,6 +36,9 @@ namespace gfxtk {
         glm::vec2 getPointerPosition() const;
         [[nodiscard]]
         bool getShouldClose() const;
+        [[nodiscard]]
+        float getSuggestedZoom() const;
+
         void setOnButtonInput(std::function<void(InputButton, InputAction)> onButtonInput);
         void setOnPointerInput(std::function<void(InputPointer, InputAction)> onPointerInput);
 

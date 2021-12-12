@@ -59,6 +59,10 @@ bool gfxtk::Window::getShouldClose() const {
     return _backendWindow->getShouldClose();
 }
 
+float gfxtk::Window::getSuggestedZoom() const {
+    return _backendWindow->getSuggestedZoom();
+}
+
 void gfxtk::Window::setOnButtonInput(std::function<void(InputButton, InputAction)> onButtonInput) {
     _backendWindow->setOnButtonInput(std::move(onButtonInput));
 }
