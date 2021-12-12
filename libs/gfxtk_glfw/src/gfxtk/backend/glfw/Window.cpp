@@ -191,8 +191,11 @@ gfxtk::backend::Window::Window(
     glfwSetWindowUserPointer(window, this);
 
     glfwGetFramebufferSize(window, &cachedFramebufferWidth, &cachedFramebufferHeight);
+    glfwGetWindowSize(window, &cachedWindowWidth, &cachedWindowHeight);
 
     glfwSetFramebufferSizeCallback(window, gfxtk_glfw_windowFramebufferResizeCallback);
+    glfwSetWindowSizeCallback(window, gfxtk_glfw_windowResizeCallback);
+    glfwSetCursorPosCallback(window, gfxtk_glfw_windowCursorPosCallback);
     glfwSetKeyCallback(window, gfxtk_glfw_windowKeyCallback);
     glfwSetMouseButtonCallback(window, gfxtk_glfw_windowMouseButtonCallback);
 }
@@ -201,6 +204,10 @@ gfxtk::backend::Window::Window(gfxtk::backend::Window&& other) noexcept  {
     window = other.window;
     cachedFramebufferWidth = other.cachedFramebufferWidth;
     cachedFramebufferHeight = other.cachedFramebufferHeight;
+    cachedWindowWidth = other.cachedFramebufferWidth;
+    cachedWindowHeight = other.cachedFramebufferHeight;
+    cachedPointerX = other.cachedPointerX;
+    cachedPointerY = other.cachedPointerY;
     other.window = nullptr;
     // Replace the entry with the new pointer
     glfwSetWindowUserPointer(window, this);
